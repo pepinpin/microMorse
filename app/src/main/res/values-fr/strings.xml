@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="txt_to_translate">Texte à traduire</string>
+	<string name="translated_text">Texte traduit</string>
+
+	<string name="cancel">Annuler</string>
+	<string name="sending_code">Envoyer le code Morse</string>
+	<string name="space_button_text">petit espace = 1 tap\ngrand espace = 2 taps ou laisser appuyé</string>
+	<string name="settings_message">1 point = 1 UT\n1 trait = 3 UT\n1 espace entre caractères = 3 UT\n1 espace entre mots = 7 UT</string>
+	<string name="settings_title">Definissez l\'Unité de Temps (in ms) :</string>
+	<string name="settings_set_button">Appliquer</string>
+	<string name="error_no_flash_title">Erreur</string>
+	<string name="error_no_flash_message">Votre appareil n\'a pas de Flashlight !</string>
+	<string name="error_no_flash_dismiss_button">Fermer</string>
+	<string name="error_no_camera_toast">Erreur : Impossible de se connecter à la caméra, elle est peut être utilisée par une autre application !</string>
+	<string name="error_no_json_toast">Impossible d\'accéder au fichier JSON</string>
+	<string name="text_to_morse">Texte vers Morse</string>
+	<string name="morse_to_text">Morse vers Texte</string>
+	<string name="settings">Paramètres</string>
+</resources>

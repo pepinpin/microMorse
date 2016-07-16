@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<color name="colorPrimary">#c50202</color>
+	<color name="colorPrimaryDark">#a41111</color>
+	<color name="colorAccent">#fda400</color>
+
+	<color name="sendButtonNotSending">#e3e3e3</color>
+	<color name="sendButtonSending">#f44003</color>
+</resources>

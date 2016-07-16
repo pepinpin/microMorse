@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+	  xmlns:app="http://schemas.android.com/apk/res-auto">
+	<group
+		>
+		<item
+			android:id="@+id/ttm_menu"
+			android:title="@string/text_to_morse"
+			app:showAsAction="never"
+			/>
+		<item
+			android:id="@+id/mtt_menu"
+			android:title="@string/morse_to_text"
+			app:showAsAction="never"
+			/>
+	</group>
+
+	<item
+		android:id="@+id/settings_menu"
+		android:title="@string/settings"
+		app:showAsAction="never"
+		/>
+
+</menu>

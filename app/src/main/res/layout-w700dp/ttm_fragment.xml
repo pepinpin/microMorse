@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	android:id="@+id/activity_main"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context="net.biospherecorp.umorse.MainActivity"
+	android:orientation="vertical"
+	android:weightSum="1">
+
+	<EditText
+		android:id="@+id/toTranslateEditText"
+		android:background="@drawable/active_text_view"
+
+		android:textSize="20sp"
+		android:maxLength="200"
+		android:hint="@string/txt_to_translate"
+		android:gravity="start"
+
+
+		android:imeOptions="actionDone"
+		android:inputType="textImeMultiLine"
+
+		android:layout_width="match_parent"
+		android:layout_height="100dp"
+
+		android:layout_marginTop="@dimen/activity_vertical_margin"
+		android:layout_marginBottom="@dimen/activity_vertical_margin"
+
+		android:layout_marginLeft="@dimen/activity_horizontal_margin"
+		android:layout_marginStart="@dimen/activity_horizontal_margin"
+		android:layout_marginRight="@dimen/activity_horizontal_margin"
+		android:layout_marginEnd="@dimen/activity_horizontal_margin"
+
+		android:paddingTop="@dimen/textview_vertical_padding"
+		android:paddingBottom="@dimen/textview_vertical_padding"
+
+		android:paddingLeft="@dimen/textview_horizontal_padding"
+		android:paddingStart="@dimen/textview_horizontal_padding"
+
+		android:paddingRight="@dimen/textview_horizontal_padding"
+		android:paddingEnd="@dimen/textview_horizontal_padding"
+		/>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="end"
+		android:layout_marginRight="@dimen/activity_horizontal_margin"
+		android:layout_marginEnd="@dimen/activity_horizontal_margin"
+		>
+		<TextView
+			android:id="@+id/actualChar"
+			android:text="0"
+			android:layout_width="28dp"
+			android:layout_height="wrap_content"
+			/>
+
+		<TextView
+			android:id="@+id/maxChar"
+			android:text=" / 200"
+			android:layout_width="40dp"
+			android:layout_height="wrap_content"
+			/>
+	</LinearLayout>
+
+	<TextView
+		android:id="@+id/resultTextView"
+		android:background="@drawable/inactive_text_view"
+
+		android:layout_width="match_parent"
+		android:layout_height="220dp"
+
+		android:hint="@string/translated_text"
+
+		android:textIsSelectable="true"
+		android:textColor="@android:color/black"
+		android:textSize="22sp"
+
+		android:scrollbars="vertical"
+
+		android:layout_marginTop="@dimen/activity_vertical_margin"
+		android:layout_marginBottom="@dimen/activity_vertical_margin"
+
+		android:layout_marginLeft="@dimen/activity_horizontal_margin"
+		android:layout_marginStart="@dimen/activity_horizontal_margin"
+		android:layout_marginRight="@dimen/activity_horizontal_margin"
+		android:layout_marginEnd="@dimen/activity_horizontal_margin"
+
+		android:paddingTop="@dimen/textview_vertical_padding"
+		android:paddingLeft="@dimen/textview_horizontal_padding"
+		android:paddingStart="@dimen/textview_horizontal_padding"
+
+		android:paddingRight="@dimen/textview_horizontal_padding"
+		android:paddingEnd="@dimen/textview_horizontal_padding"
+		android:paddingBottom="@dimen/textview_vertical_padding"
+
+		/>
+
+	<Button
+		android:id="@+id/sendMorseCodeButton"
+		android:text="@string/sending_code"
+
+		android:layout_width="220dp"
+		android:layout_height="80dp"
+		android:layout_gravity="center"
+
+		/>
+
+
+</LinearLayout>

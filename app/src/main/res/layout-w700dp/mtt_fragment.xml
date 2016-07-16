@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	android:id="@+id/activity_main"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context="net.biospherecorp.umorse.MainActivity"
+	android:orientation="vertical"
+	android:weightSum="1">
+
+
+	<TextView
+		android:id="@+id/resultTextView"
+		android:background="@drawable/inactive_text_view"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:minHeight="300dp"
+		android:textSize="22sp"
+
+		android:hint="@string/translated_text"
+		android:textIsSelectable="true"
+
+		android:scrollbars="vertical"
+
+		android:paddingTop="@dimen/textview_vertical_padding"
+		android:paddingBottom="@dimen/textview_vertical_padding"
+
+		android:paddingLeft="@dimen/textview_horizontal_padding"
+		android:paddingStart="@dimen/textview_horizontal_padding"
+
+		android:paddingRight="@dimen/textview_horizontal_padding"
+		android:paddingEnd="@dimen/textview_horizontal_padding"
+
+		android:layout_marginTop="32dp"
+
+		android:layout_marginStart="@dimen/activity_horizontal_margin"
+		android:layout_marginLeft="@dimen/activity_horizontal_margin"
+
+		android:layout_marginEnd="@dimen/activity_horizontal_margin"
+		android:layout_marginRight="@dimen/activity_horizontal_margin"
+
+		android:layout_alignParentTop="true"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true"
+		/>
+
+
+	<ImageButton
+		android:id="@+id/dot_button"
+		android:src="@drawable/dot"
+
+		android:layout_width="100dp"
+		android:layout_height="100dp"
+
+		android:layout_marginLeft="32dp"
+		android:layout_marginStart="32dp"
+
+		android:layout_centerVertical="true"
+		android:layout_alignLeft="@+id/space_button"
+		android:layout_alignStart="@+id/space_button"
+		/>
+
+
+	<ImageButton
+		android:id="@+id/dash_button"
+		android:src="@drawable/dash"
+
+		android:layout_width="160dp"
+		android:layout_height="100dp"
+
+		android:layout_marginRight="32dp"
+		android:layout_marginEnd="32dp"
+		android:layout_alignTop="@+id/dot_button"
+		android:layout_alignRight="@+id/space_button"
+		android:layout_alignEnd="@+id/space_button"
+		/>
+
+
+	<Button
+		android:id="@+id/space_button"
+		android:text="@string/space_button_text"
+		android:textSize="16sp"
+
+
+		android:layout_width="match_parent"
+		android:layout_height="100dp"
+
+		android:layout_marginStart="@dimen/activity_horizontal_margin"
+		android:layout_marginLeft="@dimen/activity_horizontal_margin"
+
+		android:layout_marginEnd="@dimen/activity_horizontal_margin"
+		android:layout_marginRight="@dimen/activity_horizontal_margin"
+
+		android:layout_marginBottom="-140dp"
+
+		android:layout_alignBottom="@+id/dash_button"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true"
+		/>
+
+
+</RelativeLayout>
