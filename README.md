@@ -16,7 +16,7 @@ Available soon, for free, on Google Play market.
 - French
 - Spanish
 - English
-- International Morse code
+- International Morse code :p
 
 ### Know issues :
 - Graphical bug on Android KitKat (4.4) => menus aren't displayed properly but still usable
