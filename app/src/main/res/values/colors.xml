@@ -5,6 +5,8 @@
 <color name="colorPrimaryDark">#a41111</color>
 <color name="colorAccent">#fda400</color>
 
-<color name="sendButtonNotSending">#75cc2b</color>
-<color name="sendButtonSending">#fda400</color>
+<color name="colorButtonShadow">@color/colorPrimaryDark</color>
+
+<color name="sendButtonNotSending">@color/colorPrimary</color>
+<color name="sendButtonSending">@color/colorAccent</color>
 </resources>

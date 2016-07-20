@@ -23,21 +23,23 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 
 	private Morse _morse;
 	private SendMorseTask _task;
+	//
+	private EditText textToTranslate;
+	private FloatingActionButton sendButton;
 
 	private TextView _translatedTextView;
 	private final int MAX_NUMBER_OF_CHARS = 200;
 
-	private FloatingActionButton sendButton;
-
 	private String _translatedString = "";
 
+	// the colors used for the button
 	private int sendingColor;
 	private int notSendingColor;
 
+	// is it actually sending morse
 	private boolean isSending = false;
 
-
-
+	// to display sending status
 	private Snackbar snack;
 
 
@@ -74,7 +76,7 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 
 	// EditText view
 		//
-		EditText textToTranslate = (EditText) view.findViewById(R.id.toTranslateEditText);
+		textToTranslate = (EditText) view.findViewById(R.id.toTranslateEditText);
 
 		// set the max number of char in the editText
 		textToTranslate.setFilters(new InputFilter[]{new InputFilter.LengthFilter(MAX_NUMBER_OF_CHARS)});
@@ -140,45 +142,51 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 		sendingColor = getResources().getColor(R.color.sendButtonSending);
 		notSendingColor = getResources().getColor(R.color.sendButtonNotSending);
 
-
 		sendButton = (FloatingActionButton) view.findViewById(R.id.sendMorseCodeButton);
 
 		sendButton.setImageResource(android.R.drawable.ic_media_play);
 		sendButton.setBackgroundTintList(ColorStateList.valueOf(notSendingColor));
 
+		// the snack is going to be shown
 		snack = Snackbar.make(sendButton, "placeholder", Snackbar.LENGTH_SHORT);
-
-		//sendButton.setBackgroundColor(notSendingColor);
 
 		sendButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 
-				// clear the tasks every time
-				// the button is pressed
-				clearTask();
-
+				// if NOT sending and text NOT empty
 				if (!isSending && !_translatedString.equals("")){
 
 					// change the state of the button
 					isSending = true;
 					toggleButton();
 
-					_task = new SendMorseTask((MainActivity) (TextToMorseFragment.this.getActivity()));
+					// show the snack
+					showSnack("Sending Morse code !", Snackbar.LENGTH_INDEFINITE);
+
+					// send the morse code
+					_task = new SendMorseTask((MainActivity) (getActivity()));
 					_task.execute(_translatedString);
+
 				}else{
 
 					isSending = false;
 
+					// stop sending morse code
+					clearTask();
+					// change the state of the button
+					toggleButton();
+
 					// if the string isn't empty
 					if (!_translatedString.equals("")){
-						// change the state of the button
-						toggleButton();
+
+						// show the snack
+						showSnack("Stop sending Morse code !", 500);
 					}else{
-						// display a snack bar
-						snack.setText("No Morse code to send !")
-								.setDuration(800)
-								.show();
+
+						setButton(false);
+						// show the snack
+						showSnack("No Morse code to send !", 800);
 					}
 				}
 			}
@@ -186,10 +194,16 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 	}
 
 	@Override
+	public void onResume() {
+		super.onResume();
+	}
+
+	@Override
 	public void onPause() {
 		super.onPause();
 
-		cancelSending();
+		clearTask();
+		setButton(false);
 	}
 
 
@@ -197,7 +211,6 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 	public void processResponse(String out) {
 
 		_translatedString = out;
-
 		_translatedTextView.setText(_translatedString);
 		L.m("Translated Text :", out);
 	}
@@ -206,6 +219,9 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 	void cancelSending(){
 		clearTask();
 		setButton(false);
+
+		// show the snack
+		showSnack("Stop sending Morse code !", 500);
 	}
 
 
@@ -219,30 +235,21 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 		if(sendButton != null){
 
 			if (!isSending){
-				//sendButton.setBackgroundColor(sendingColor);
-				//sendButton.setText(R.string.cancel);
-
 				sendButton.setBackgroundTintList(ColorStateList.valueOf(notSendingColor));
 				sendButton.setImageResource(android.R.drawable.ic_media_play);
-
-				snack.setText("Stop sending Morse code !")
-						.setDuration(500)
-						.show();
-
-
+				textToTranslate.setEnabled(true);
 			}else{
-//				sendButton.setBackgroundColor(notSendingColor);
-//				sendButton.setText(R.string.sending_code);
-
 				sendButton.setBackgroundTintList(ColorStateList.valueOf(sendingColor));
 				sendButton.setImageResource(android.R.drawable.ic_delete);
-
-				snack.setText("Sending Morse code !")
-						.setDuration(Snackbar.LENGTH_INDEFINITE)
-						.show();
-
+				textToTranslate.setEnabled(false);
 			}
 		}
+	}
+
+	private void showSnack(String text, int duration){
+			snack.setText(text)
+					.setDuration(duration)
+					.show();
 	}
 
 	private void clearTask(){

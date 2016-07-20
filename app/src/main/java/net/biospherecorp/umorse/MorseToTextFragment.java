@@ -12,8 +12,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
+
+import ru.katso.livebutton.LiveButton;
 
 import static android.content.Context.VIBRATOR_SERVICE;
 
@@ -77,8 +78,10 @@ public class MorseToTextFragment extends Fragment implements TranslateMorseTask.
 		_morse = Morse.getInstance(getActivity());
 
 		// get the buttons from the view
-		ImageButton dotButton = (ImageButton) view.findViewById(R.id.dot_button);
-		ImageButton dashButton = (ImageButton) view.findViewById(R.id.dash_button);
+
+		LiveButton dotButton = (LiveButton) view.findViewById(R.id.dot_button);
+		LiveButton dashButton = (LiveButton) view.findViewById(R.id.dash_button);
+
 		final Button spaceButton = (Button) view.findViewById(R.id.space_button);
 
 		// get the TextView from the view
@@ -121,7 +124,19 @@ public class MorseToTextFragment extends Fragment implements TranslateMorseTask.
 				gDetector.onTouchEvent(motionEvent);
 
 				// return true if the event has been consumed
-				return true;
+				// false otherwise
+				//
+				// false is return so the onClickListener can
+				// work (to fix the lack of animation)
+				return false;
+			}
+		});
+
+		spaceButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				// little hack to allow the on click animation
+				// on this custom button
 			}
 		});
 	}

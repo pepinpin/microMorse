@@ -5,7 +5,8 @@
 
 	<string name="cancel">Annuler</string>
 	<string name="sending_code">Envoyer le code Morse</string>
-	<string name="space_button_text">petit espace = 1 tap\ngrand espace = 2 taps ou laisser appuyé</string>
+	<string name="space_button_text">ESPACE</string>
+	<string name="space_text">1 tap = petit espace\n2 taps / laisser appuyé = grand espace</string>
 	<string name="settings_message">1 point = 1 UT\n1 trait = 3 UT\n1 espace entre caractères = 3 UT\n1 espace entre mots = 7 UT</string>
 	<string name="settings_title">Definissez l\'Unité de Temps (in ms) :</string>
 	<string name="settings_set_button">Appliquer</string>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:id="@+id/activity_main"
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
@@ -46,58 +47,104 @@
 		android:layout_alignParentStart="true"
 		/>
 
-
-	<ImageButton
+	<view
 		android:id="@+id/dot_button"
-		android:src="@drawable/dot"
+		class="ru.katso.livebutton.LiveButton"
 
-		android:layout_width="100dp"
-		android:layout_height="100dp"
+		android:layout_width="70dp"
+		android:layout_height="70dp"
 
-		android:layout_marginLeft="30dp"
-		android:layout_marginStart="30dp"
+		android:text="."
+		android:textColor="@color/colorAccent"
+		android:textStyle="bold"
+		android:textSize="70sp"
 
-		android:layout_centerVertical="true"
+		app:corners="20dp"
+		app:normalHeight="6dp"
+		app:pressedHeight="2dp"
+		app:backgroundColor="@color/colorPrimary"
+		app:shadowColor="@color/colorPrimaryDark"
+
+		android:layout_marginTop="47dp"
+		android:layout_marginLeft="33dp"
+		android:layout_marginStart="33dp"
+
+		android:layout_below="@+id/resultTextView"
 		android:layout_alignLeft="@+id/space_button"
 		android:layout_alignStart="@+id/space_button"
+		android:layout_centerHorizontal="true"
+
 		/>
 
-
-	<ImageButton
+	<view
 		android:id="@+id/dash_button"
-		android:src="@drawable/dash"
+		class="ru.katso.livebutton.LiveButton"
 
-		android:layout_width="160dp"
-		android:layout_height="100dp"
+		android:layout_width="70dp"
+		android:layout_height="70dp"
+
+		android:text="-"
+		android:textColor="@color/colorAccent"
+		android:textStyle="bold"
+		android:textSize="70sp"
+
+		app:corners="20dp"
+		app:normalHeight="6dp"
+		app:pressedHeight="2dp"
+		app:backgroundColor="@color/colorPrimary"
+		app:shadowColor="@color/colorPrimaryDark"
 
 		android:layout_marginRight="30dp"
 		android:layout_marginEnd="30dp"
+
 		android:layout_alignTop="@+id/dot_button"
 		android:layout_alignRight="@+id/space_button"
 		android:layout_alignEnd="@+id/space_button"
+		android:layout_alignBottom="@+id/dot_button"
+
+		android:layout_centerHorizontal="true"
 		/>
 
-
-	<Button
+	<view
 		android:id="@+id/space_button"
-		android:text="@string/space_button_text"
-		android:textSize="12sp"
-
+		class="ru.katso.livebutton.LiveButton"
 
 		android:layout_width="match_parent"
-		android:layout_height="100dp"
+		android:layout_height="80dp"
+
+		android:text="@string/space_button_text"
+		android:textColor="@color/colorPrimary"
+		android:textSize="14sp"
+		android:textStyle="bold"
+
+		app:corners="20dp"
+		app:normalHeight="6dp"
+		app:pressedHeight="2dp"
+		app:backgroundColor="@color/colorAccent"
+		app:shadowColor="@color/colorPrimaryDark"
+
+		android:includeFontPadding="false"
 
 		android:layout_marginStart="16dp"
 		android:layout_marginLeft="16dp"
-
 		android:layout_marginEnd="16dp"
 		android:layout_marginRight="16dp"
-
 		android:layout_marginBottom="-140dp"
 
 		android:layout_alignBottom="@+id/dash_button"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentStart="true"
+		android:layout_centerHorizontal="true"
+		/>
+
+	<TextView
+		android:id="@+id/textView"
+		android:text="@string/space_text"
+
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+
+		android:layout_marginBottom="-60dp"
+		android:layout_alignBottom="@+id/space_button"
 		/>
 
 

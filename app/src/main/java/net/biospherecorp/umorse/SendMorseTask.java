@@ -27,11 +27,12 @@ class SendMorseTask extends AsyncTask<String, Void, Void> {
 	protected void onPreExecute() {
 		super.onPreExecute();
 
+		// Create a SimpleCamera object to send morse code
 		_camera = new SimpleCamera(_main);
-		_flashLight = _camera.new FlashLight();
-
 		_camera.initCamera();
 
+		// get the flashlight
+		_flashLight = _camera.new FlashLight();
 	}
 
 	@Override
