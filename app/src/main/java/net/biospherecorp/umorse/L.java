@@ -10,7 +10,7 @@ public abstract class L{
 
 
 	// change this to active / deactivate this tool
-	private static boolean IS_ACTIVATED = true;
+	private static boolean IS_ACTIVATED = false;
 
 
 
@@ -29,7 +29,7 @@ public abstract class L{
 		}
 	}
 
-	// DEFAULT TOAST
+	// DEFAULT TOAST--
 	static void t(Context context, String message){
 
 		if (IS_ACTIVATED) {
