@@ -8,7 +8,7 @@
 	<string name="space_button_text">ESPACE</string>
 	<string name="space_text">1 tap = petit espace\n2 taps / laisser appuyé = grand espace</string>
 	<string name="settings_message">plus la valeur est petite, plus l\'emission est rapide\n\nvaleurs en ms :</string>
-	<string name="settings_title">Definissez la vitesse d\'emission :</string>
+	<string name="settings_title">Definissez la vitesse d\'emission :\n\n</string>
 	<string name="settings_set_button">Appliquer</string>
 	<string name="error_no_flash_title">Erreur</string>
 	<string name="error_no_flash_message">Votre appareil n\'a pas de Flashlight !</string>

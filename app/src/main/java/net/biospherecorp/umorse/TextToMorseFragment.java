@@ -28,8 +28,11 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 	private FloatingActionButton sendButton;
 
 	private TextView _translatedTextView;
+
+	// max amount of characters allowed
 	private final int MAX_NUMBER_OF_CHARS = 200;
 
+	// string holding the text to translate
 	private String _translatedString = "";
 
 	// the colors used for the button
@@ -40,6 +43,10 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 	private boolean isSending = false;
 
 	// to display sending status
+	//
+	// declared globally so the text
+	// can be updated without recreating
+	// a new one (no useless animation)
 	private Snackbar snack;
 
 
@@ -85,15 +92,10 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 		textToTranslate.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 			@Override
 			public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+
 				// hide the keyboard when the enter key
 				// button is pressed
-				if (actionId == EditorInfo.IME_ACTION_GO
-						|| actionId == EditorInfo.IME_ACTION_DONE
-						|| actionId == EditorInfo.IME_ACTION_NEXT
-						|| actionId == EditorInfo.IME_ACTION_SEND
-						|| actionId == EditorInfo.IME_ACTION_SEARCH
-						|| (keyEvent.getAction() == KeyEvent.KEYCODE_ENTER)) {
-
+					if (actionId == EditorInfo.IME_ACTION_DONE){
 					((MainActivity)getActivity()).hideSoftKeyboard();
 
 					return true;
@@ -129,7 +131,9 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 			}
 
 			@Override
-			public void afterTextChanged(Editable editable) {}
+			public void afterTextChanged(Editable editable) {
+				// nothing special here
+			}
 		});
 
 
@@ -150,9 +154,10 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 		// set the bkg color
 		sendButton.setBackgroundTintList(ColorStateList.valueOf(notSendingColor));
 
-		// the snack is going to be shown
+		// the snack that is going to be shown
 		snack = Snackbar.make(sendButton, "placeholder", Snackbar.LENGTH_SHORT);
 
+		// set the onClickListener
 		sendButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -177,7 +182,7 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 					if (!_translatedString.equals("")){
 
 						//cancel
-						cancelSending();
+						stopSending();
 					}else{
 						// if string is empty and
 						// no morse code is being sent
@@ -188,21 +193,24 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 		});
 	}
 
-	@Override
-	public void onResume() {
-		super.onResume();
-	}
+//	@Override
+//	public void onResume() {
+//		super.onResume();
+//	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
 
+		// if morse code is being sent,
+		// stop it all and reset the button
 		if (isSending){
-			cancelSending();
+			stopSending();
 		}
 	}
 
 
+	// called by the TranslateMorseTask asyncTask
 	@Override
 	public void processResponse(String out) {
 
@@ -212,20 +220,36 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 	}
 
 
-	void cancelSending(){
-		clearTask();
+	// stop everything,
+	// reset the button
+	// display a snack
+	//
+	void stopSending(){
+
+		// toggle the button back
+		// to the not sending state
 		setButton(false);
 
 		// show the snack
 		showSnack(getString(R.string.snack_stop_sending), 500);
+
+		// if a task is running,
+		// cancel it
+		if (_task != null){
+			_task.cancel(true);
+			_task = null;
+		}
+
 	}
 
 
+	// set the button is a specific state (sending/ not sending)
 	private void setButton(boolean isSending){
 		this.isSending = isSending;
 		toggleButton();
 	}
 
+	// toggle mechanism
 	private void toggleButton(){
 
 		if(sendButton != null &&
@@ -247,17 +271,10 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 		}
 	}
 
+	// easier than constructing a snackbar every time
 	private void showSnack(String text, int duration){
 		snack.setText(text)
 				.setDuration(duration)
 				.show();
-	}
-
-	private void clearTask(){
-
-		if (_task != null){
-			_task.cancel(true);
-			_task = null;
-		}
 	}
 }

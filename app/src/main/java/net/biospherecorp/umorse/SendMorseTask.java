@@ -29,7 +29,11 @@ class SendMorseTask extends AsyncTask<String, Void, Void> {
 
 		// Create a SimpleCamera object to send morse code
 		_camera = new SimpleCamera(_main);
-		_camera.initCamera();
+
+		if(!_camera.initCamera()){
+//			_main.stopSending();
+			stopSendingMorse();
+		}
 
 		// get the flashlight
 		_flashLight = _camera.new FlashLight();
@@ -81,9 +85,8 @@ class SendMorseTask extends AsyncTask<String, Void, Void> {
 				e.printStackTrace();
 			return null;
 		}finally {
-			// clear the camera & the flashlight
-			// on success, exception or cancellation
-			// (every time something happens basically)
+			// release the camera
+			// & clear the flashlight
 			clearAll();
 		}
 
@@ -96,7 +99,9 @@ class SendMorseTask extends AsyncTask<String, Void, Void> {
 		super.onPostExecute(aVoid);
 
 		// stop the tasks and reset the button
-		_main.getTtmFragment().cancelSending();
+		//_main.stopSending();
+		stopSendingMorse();
+
 	}
 
 	private void clearAll(){
@@ -105,6 +110,11 @@ class SendMorseTask extends AsyncTask<String, Void, Void> {
 			_camera = null;
 		}
 		_flashLight = null;
+	}
+
+	private void stopSendingMorse(){
+		TextToMorseFragment frag = (TextToMorseFragment) _main.getFragmentManager().findFragmentByTag("ttm");
+		frag.stopSending();
 	}
 
 }

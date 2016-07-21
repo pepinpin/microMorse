@@ -27,31 +27,14 @@ class SimpleCamera {
 
 	// checks to make sure the device has a flash,
 	// displays an AlertDialog and quit the app if not
-	private void _checkIfCameraHasFlash(){
+	private boolean _checkIfCameraHasFlash(){
 
 		// Checks to see if the device has a camera flash (flash light)
 		boolean hasFlash = _main.getApplicationContext()
 				.getPackageManager()
 				.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
 
-		// if it hasn't, show an AlertDialog
-		if(!hasFlash){
-			final AlertDialog alertDialog = new AlertDialog.Builder(_main).create();
-			alertDialog.setTitle(_main.getString(R.string.error_no_flash_title));
-			alertDialog.setMessage(_main.getString(R.string.error_no_flash_message));
-			alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, _main.getString(R.string.error_no_flash_dismiss_button), new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialogInterface, int i) {
-					// close the alert dialog
-					alertDialog.dismiss();
-				}
-			});
-
-			alertDialog.show();
-
-			// stop the tasks and reset the button
-			_main.getTtmFragment().cancelSending();
-		}
+		return hasFlash;
 	}
 
 	// get the camera device and the parameters
@@ -66,20 +49,56 @@ class SimpleCamera {
 				e.printStackTrace();
 				L.e(TAG, "Camera Error : Couldn't get the camera, it may be used by another app !");
 				L.e(TAG, "Camera Error : " + e.getMessage());
-			}finally {
-				// 2nd test to check if the camera has been open properly
-				// if not, display a Toast
-				if (_camera == null){
-					Toast.makeText(_main, R.string.error_no_camera_toast, Toast.LENGTH_LONG).show();
-				}
 			}
 		}
 	}
 
 	// checks for flash and gets the camera device
-	void initCamera(){
-		_checkIfCameraHasFlash();
-		_getCamera();
+	boolean initCamera(){
+
+		// check if the device has a flash
+		//
+	// it it DOES have a flash
+		if(_checkIfCameraHasFlash()){
+
+			// check if the camera
+			// is available (not already in use)
+			_getCamera();
+
+			// if the camera is not available
+			// display a toast
+			if (_camera == null){
+
+				Toast.makeText(_main, R.string.error_no_camera_toast, Toast.LENGTH_LONG).show();
+
+				// it has a flash but the camera ISN'T available
+				return false;
+			}
+
+			// it has a flash and the camera IS available
+			return true;
+
+	// if it DOESN'T have a flash
+		}else{
+
+			// Show an alertDialog
+			final AlertDialog alertDialog = new AlertDialog.Builder(_main).create();
+			alertDialog.setTitle(_main.getString(R.string.error_no_flash_title));
+			alertDialog.setMessage(_main.getString(R.string.error_no_flash_message));
+			alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, _main.getString(R.string.error_no_flash_dismiss_button), new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialogInterface, int i) {
+					// close the alert dialog
+					alertDialog.dismiss();
+				}
+			});
+
+			alertDialog.show();
+
+			// it DOESN'T have a flash
+			return false;
+
+		}
 	}
 
 	// releases the camera and resets the
