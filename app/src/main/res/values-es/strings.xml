@@ -19,4 +19,12 @@
 	<string name="text_to_morse">Texto a Morse</string>
 	<string name="morse_to_text">Morse a Texto</string>
 	<string name="settings">Ajustes</string>
+	<string name="emitting_speed_fast">Rapido</string>
+	<string name="emitting_speed_normal">Normal</string>
+	<string name="emitting_speed_slow">Lento</string>
+	<string name="emitting_speed_very_fast">Muy Rapido</string>
+	<string name="emitting_speed_very_slow">Muy Lento</string>
+	<string name="snack_sending_morse_code">Sending Morse code !</string>
+	<string name="snack_nothing_to_send">No Morse code to send !</string>
+	<string name="snack_stop_sending">Stop sending Morse code !</string>
 </resources>

@@ -18,5 +18,13 @@
 	<string name="text_to_morse">Text To Morse</string>
 	<string name="morse_to_text">Morse to Text</string>
 	<string name="settings">Settings</string>
+	<string name="emitting_speed_slow">Slow</string>
+	<string name="emitting_speed_very_slow">Very Slow</string>
+	<string name="emitting_speed_normal">Normal</string>
+	<string name="emitting_speed_fast">Fast</string>
+	<string name="emitting_speed_very_fast">Very Fast</string>
+	<string name="snack_sending_morse_code">Sending Morse code...</string>
+	<string name="snack_nothing_to_send">No Morse code to send</string>
+	<string name="snack_stop_sending">Stop sending Morse code !</string>
 
 </resources>

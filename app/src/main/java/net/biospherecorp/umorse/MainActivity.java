@@ -19,18 +19,38 @@ public class MainActivity extends AppCompatActivity{
 
 	private TextToMorseFragment ttmFragment;
 
+	// set by the settings and used
+	// by the SendMorseTask AsyncTask
 	static int delayTime;
 
-	// Array holding the values to be displayed
-	// in the settings AlertDialog/NumberPicker
-	private final static String[] DELAYS = {"600","700","800","900","1000", "1100", "1200", "1300", "1400", "1500"};
+	// Enum holding the name and values for the emitting speed
+	// used in the settings
+	private enum Delays{
+		VERY_FAST(R.string.emitting_speed_very_fast ,600),
+		FAST(R.string.emitting_speed_fast,800),
+		NORMAL(R.string.emitting_speed_normal, 1000),
+		SLOW(R.string.emitting_speed_slow, 1200),
+		VERY_SLOW(R.string.emitting_speed_very_slow, 1400);
+
+		int name;
+		int speed;
+		Delays(int stringId, int speedInMs){
+			this.name = stringId;
+			this.speed = speedInMs;
+		}
+	}
+
+	MainActivity getActivity(){
+		return  getActivity();
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		delayTime = Integer.valueOf(DELAYS[loadDelayPositionFromSharedPreferences()]);
+		delayTime = Delays.values()[loadDelayPositionFromSharedPreferences()].speed;
 		ttmFragment = new TextToMorseFragment();
+
 
 		getFragmentManager().beginTransaction()
 				.replace(android.R.id.content, ttmFragment)
@@ -54,6 +74,8 @@ public class MainActivity extends AppCompatActivity{
 		switch(item.getItemId()){
 			case R.id.ttm_menu:
 
+				// show the Text to Morse Fragment
+
 				ttmFragment = new TextToMorseFragment();
 
 					getFragmentManager().beginTransaction()
@@ -63,7 +85,8 @@ public class MainActivity extends AppCompatActivity{
 
 			case R.id.mtt_menu:
 
-				//MorseToTextFragment mttFragment = new MorseToTextFragment();
+				// show the Morse to Text Fragment
+
 				MorseToTextFragment mttFragment = new MorseToTextFragment();
 
 				getFragmentManager().beginTransaction()
@@ -89,21 +112,29 @@ public class MainActivity extends AppCompatActivity{
 
 		// set the title and message
 		adb.setTitle(R.string.settings_title);
-		adb.setMessage(R.string.settings_message);
+		//adb.setMessage(R.string.settings_message);
 
 		// create the numberPicker
 		final NumberPicker np = new NumberPicker(this);
 
+
+		final String[] tmpValues = new String[Delays.values().length];
+
+		for (Delays value : Delays.values()){
+			tmpValues[value.ordinal()] = getResources().getString(value.name);
+		}
+
 		// set the values to display (values set)
-		np.setDisplayedValues(DELAYS);
+		np.setDisplayedValues(tmpValues);
 
-		// set the min value position in the values set
+		// set the min position in the Enum
 		np.setMinValue(0);
-		// set the max value position in the values set
-		np.setMaxValue(9);
+		// set the max position in the Enum
+		np.setMaxValue(Delays.values().length - 1);
 
-		// set the default value position in the values set
+		// set the saved position from the SharedPreferences
 		np.setValue(loadDelayPositionFromSharedPreferences());
+
 		// set the wheel to NOT go around indefinitely
 		np.setWrapSelectorWheel(false);
 
@@ -124,10 +155,13 @@ public class MainActivity extends AppCompatActivity{
 			@Override
 			public void onClick(DialogInterface dialogInterface, int i) {
 
-				int position = np.getValue();
+				int positionInWheel = np.getValue();
 
-				saveDelayPositionToSharedPreferences(position);
-				delayTime = Integer.valueOf(DELAYS[position]);
+				// Save the position to the SharedPreferences
+				saveDelayPositionToSharedPreferences(positionInWheel);
+
+				// update the delayTime
+				delayTime = Delays.values()[positionInWheel].speed;
 
 				dialogInterface.dismiss();
 			}
@@ -146,16 +180,17 @@ public class MainActivity extends AppCompatActivity{
 		adb.show();
 	}
 
-	// save the "delay" value in the default SharedPreferences
+	// save the "delay" position (from the wheel) in the default SharedPreferences
+	//
 	private void saveDelayPositionToSharedPreferences(int value){
-		SharedPreferences.Editor editor = getDefaultSharedPreferences(getApplicationContext()).edit();
+		SharedPreferences.Editor editor = getDefaultSharedPreferences(this).edit();
 		editor.putInt("delay", value);
 		editor.apply();
 	}
 
-	// load the "delay" value from the SharedPreferences
+	// load the "delay" position (in the Enum) from the default SharedPreferences
 	private int loadDelayPositionFromSharedPreferences(){
-		SharedPreferences sharedPreferences = getDefaultSharedPreferences(getApplicationContext());
+		SharedPreferences sharedPreferences = getDefaultSharedPreferences(this);
 		return sharedPreferences.getInt("delay", 0);
 	}
 
