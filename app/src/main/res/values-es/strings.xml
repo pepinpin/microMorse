@@ -9,7 +9,7 @@
 	<string name="space_text">1 tap = Espacio pequeño\n2 taps / dejar presionado = Espacio grande</string>
 
 	<string name="settings_message">1 punto = 1 UT\n1 raya = 3 UT\n1 espacio entre los caracteres = 3 UT\n1 espacio entre las palabras = 7 UT</string>
-	<string name="settings_title">La Unidad de Tiempo (en ms) :</string>
+	<string name="settings_title">La Velocidad :</string>
 	<string name="settings_set_button">Aplicar</string>
 	<string name="error_no_flash_title">Error</string>
 	<string name="error_no_flash_message">Su dispositivo no tiene FlashLight !</string>

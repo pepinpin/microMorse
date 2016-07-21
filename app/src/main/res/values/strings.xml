@@ -7,8 +7,8 @@
 	<string name="cancel">Cancel</string>
 	<string name="space_button_text">SPACE</string>
 	<string name="space_text">1 tap = small space\n2 taps / long press = big space</string>
-	<string name="settings_message">1 dot = 1 UT\n1 dash = 3 UT\n1 space between chars = 3 UT\n1 space between words = 7 UT</string>
-	<string name="settings_title">Set the Unit of Time (in ms) :</string>
+	<string name="settings_message">smaller is faster\n\nvalues in ms :</string>
+	<string name="settings_title">Set the speed :</string>
 	<string name="settings_set_button">Set</string>
 	<string name="error_no_flash_title">Error</string>
 	<string name="error_no_flash_message">Your device doesn\'t support FlashLight</string>
