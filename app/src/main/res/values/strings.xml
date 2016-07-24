@@ -1,32 +1,36 @@
 <resources>
 	<string name="app_name" translatable="false">µMorse</string>
+
+	<string name="text_to_morse">Text To Morse</string>
+	<string name="morse_to_text">Morse to Text</string>
+
 	<string name="txt_to_translate">Text to translate</string>
 	<string name="translated_text">Translated text</string>
 
-	<string name="sending_code">Send Morse Code</string>
 	<string name="cancel">Cancel</string>
+
 	<string name="space_button_text">SPACE</string>
 	<string name="space_text">1 tap = small space\n2 taps / long press = big space</string>
-	<string name="settings_message">smaller is faster\n\nvalues in ms :</string>
-	<string name="settings_title">Set the speed :\n\n</string>
-	<string name="settings_set_button">Set</string>
-	<string name="error_no_flash_title">Error</string>
-	<string name="error_no_flash_message">Your device doesn\'t have a FlashLight</string>
-	<string name="error_no_flash_dismiss_button">Dismiss</string>
-	<string name="error_no_camera_toast">Camera Error : Couldn\'t get the camera, it may be used by another app !</string>
-	<string name="error_no_json_toast">Can\'t access morse_code.json</string>
-	<string name="text_to_morse">Text To Morse</string>
-	<string name="morse_to_text">Morse to Text</string>
+
 	<string name="settings">Settings</string>
+	<string name="settings_title">Set the emitting speed :\n\n</string>
+	<string name="settings_set_button">Set</string>
+
 	<string name="emitting_speed_slow">Slow</string>
 	<string name="emitting_speed_very_slow">Very Slow</string>
 	<string name="emitting_speed_normal">Normal</string>
 	<string name="emitting_speed_fast">Fast</string>
 	<string name="emitting_speed_very_fast">Very Fast</string>
-	<string name="snack_sending_morse_code">Sending Morse code...</string>
+
 	<string name="snack_nothing_to_send">No Morse code to send</string>
-	<string name="snack_stop_sending">Stop sending Morse code !</string>
-	<string name="snackbar_letter_sending">"Sending : "</string>
-	<string name="snackbar_space_sending">(space)</string>
+	<string name="snack_stop_sending">Stop emitting !</string>
+	<string name="snack_letter_sending">"Sending : "</string>
+	<string name="snack_space_sending">(space)</string>
+
+	<string name="error_no_flash_title">Error</string>
+	<string name="error_no_flash_message">Your device doesn\'t have a FlashLight</string>
+	<string name="error_no_flash_dismiss_button">Dismiss</string>
+	<string name="error_no_camera_toast">Camera Error : Couldn\'t get the camera, it may be used by another app !</string>
+	<string name="error_no_json_toast">Can\'t access morse_code.json</string>
 
 </resources>

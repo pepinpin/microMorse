@@ -170,7 +170,7 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 					toggleButton();
 
 					// show the snack
-					showSnack(getString(R.string.snack_sending_morse_code), Snackbar.LENGTH_INDEFINITE);
+					showSnack("...", Snackbar.LENGTH_INDEFINITE);
 
 					// send the morse code
 					_task = new SendMorseTask(((MainActivity) (getActivity())),

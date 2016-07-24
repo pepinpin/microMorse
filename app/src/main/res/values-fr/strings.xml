@@ -1,29 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="text_to_morse">Texte vers Morse</string>
+	<string name="morse_to_text">Morse vers Texte</string>
+
 	<string name="txt_to_translate">Texte à traduire</string>
 	<string name="translated_text">Texte traduit</string>
 
 	<string name="cancel">Annuler</string>
-	<string name="sending_code">Envoyer le code Morse</string>
+
 	<string name="space_button_text">ESPACE</string>
 	<string name="space_text">1 tap = petit espace\n2 taps / laisser appuyé = grand espace</string>
-	<string name="settings_message">plus la valeur est petite, plus l\'emission est rapide\n\nvaleurs en ms :</string>
+
+	<string name="settings">Paramètres</string>
 	<string name="settings_title">Definissez la vitesse d\'emission :\n\n</string>
 	<string name="settings_set_button">Appliquer</string>
-	<string name="error_no_flash_title">Erreur</string>
-	<string name="error_no_flash_message">Votre appareil n\'a pas de Flashlight !</string>
-	<string name="error_no_flash_dismiss_button">Fermer</string>
-	<string name="error_no_camera_toast">Erreur : Impossible de se connecter à la caméra, elle est peut être utilisée par une autre application !</string>
-	<string name="error_no_json_toast">Impossible d\'accéder au fichier JSON</string>
-	<string name="text_to_morse">Texte vers Morse</string>
-	<string name="morse_to_text">Morse vers Texte</string>
-	<string name="settings">Paramètres</string>
+
 	<string name="emitting_speed_fast">Rapide</string>
 	<string name="emitting_speed_normal">Normal</string>
 	<string name="emitting_speed_slow">Lent</string>
 	<string name="emitting_speed_very_fast">Trés Rapide</string>
 	<string name="emitting_speed_very_slow">Trés Lent</string>
-	<string name="snack_sending_morse_code">Envoi en cours...</string>
+
 	<string name="snack_nothing_to_send">Rien à envoyer</string>
-	<string name="snack_stop_sending">Arrêt de l\'envoi !</string>
+	<string name="snack_stop_sending">Arrêt de l\'émission !</string>
+
+	<string name="error_no_flash_title">Erreur</string>
+	<string name="error_no_flash_message">Votre appareil n\'a pas de Flashlight !</string>
+	<string name="error_no_flash_dismiss_button">Fermer</string>
+	<string name="error_no_camera_toast">Erreur : Impossible de se connecter à la caméra, elle est peut être utilisée par une autre application !</string>
+	<string name="error_no_json_toast">Impossible d\'accéder au fichier JSON</string>
+	<string name="snack_letter_sending">"Envoi de : "</string>
+	<string name="snack_space_sending">(espace)</string>
 </resources>

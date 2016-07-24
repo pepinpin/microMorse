@@ -66,9 +66,9 @@ class SimpleCamera {
 			_getCamera();
 
 			// if the camera is not available
-			// display a toast
 			if (_camera == null){
 
+				// display a toast
 				Toast.makeText(_main, R.string.error_no_camera_toast, Toast.LENGTH_LONG).show();
 
 				// it has a flash but the camera ISN'T available
@@ -111,7 +111,7 @@ class SimpleCamera {
 		}
 	}
 
-	// inner class representing just the light torch
+	// inner class representing just the flash light
 	class FlashLight{
 
 		// turn the light ON

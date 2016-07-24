@@ -1,30 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="text_to_morse">Texto a Morse</string>
+	<string name="morse_to_text">Morse a Texto</string>
+
 	<string name="txt_to_translate">Texto a traducir</string>
 	<string name="translated_text">Texto traducido</string>
 
 	<string name="cancel">Cancelar</string>
-	<string name="sending_code">Enviar el Codigo Morse</string>
+
 	<string name="space_button_text">ESPACIO</string>
 	<string name="space_text">1 tap = Espacio pequeño\n2 taps / dejar presionado = Espacio grande</string>
 
-	<string name="settings_message">1 punto = 1 UT\n1 raya = 3 UT\n1 espacio entre los caracteres = 3 UT\n1 espacio entre las palabras = 7 UT</string>
-	<string name="settings_title">La Velocidad :\n\n</string>
+	<string name="settings">Ajustes</string>
+	<string name="settings_title">Escoja la Velocidad :\n\n</string>
 	<string name="settings_set_button">Aplicar</string>
+
+	<string name="emitting_speed_fast">Rápido</string>
+	<string name="emitting_speed_normal">Normal</string>
+	<string name="emitting_speed_slow">Lento</string>
+	<string name="emitting_speed_very_fast">Muy Rápido</string>
+	<string name="emitting_speed_very_slow">Muy Lento</string>
+
+	<string name="snack_nothing_to_send">Nada para enviar</string>
+	<string name="snack_stop_sending">Terminar la emision !</string>
+
 	<string name="error_no_flash_title">Error</string>
 	<string name="error_no_flash_message">Su dispositivo no tiene FlashLight !</string>
 	<string name="error_no_flash_dismiss_button">Cerrar</string>
-	<string name="error_no_camera_toast">Error : Imposible conectarse a la Camara, possiblimente esta siendo utilizada por otra aplicaciòn</string>
+	<string name="error_no_camera_toast">Error : Imposible conectarse a la Cámara, possiblimente esta siendo utilizada por otra aplicaciòn</string>
 	<string name="error_no_json_toast">Impossible acceder a el archivo JSON</string>
-	<string name="text_to_morse">Texto a Morse</string>
-	<string name="morse_to_text">Morse a Texto</string>
-	<string name="settings">Ajustes</string>
-	<string name="emitting_speed_fast">Rapido</string>
-	<string name="emitting_speed_normal">Normal</string>
-	<string name="emitting_speed_slow">Lento</string>
-	<string name="emitting_speed_very_fast">Muy Rapido</string>
-	<string name="emitting_speed_very_slow">Muy Lento</string>
-	<string name="snack_sending_morse_code">Sending Morse code !</string>
-	<string name="snack_nothing_to_send">No Morse code to send !</string>
-	<string name="snack_stop_sending">Stop sending Morse code !</string>
+	<string name="snack_space_sending">(espacio)</string>
+	<string name="snack_letter_sending">"Envio de : "</string>
 </resources>

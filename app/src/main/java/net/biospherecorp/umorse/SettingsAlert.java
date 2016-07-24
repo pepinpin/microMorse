@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.NumberPicker;
 
@@ -25,12 +26,14 @@ class SettingsAlert {
 
 		// set the title and message
 		adb.setTitle(R.string.settings_title);
-		//adb.setMessage(R.string.settings_message);
 
 		// create the numberPicker
 		final NumberPicker np = new NumberPicker(activity);
 
+		// to make sure the soft keyboard doesn't pop up
+		np.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
 
+		// create the array whose going to hold the values for the nu
 		final String[] tmpValues = new String[MainActivity.Delays.values().length];
 
 		for (MainActivity.Delays value : MainActivity.Delays.values()){
@@ -40,9 +43,9 @@ class SettingsAlert {
 		// set the values to display (values set)
 		np.setDisplayedValues(tmpValues);
 
-		// set the min position in the Enum
+		// set the min index in the Wheel
 		np.setMinValue(0);
-		// set the max position in the Enum
+		// set the max index in the Wheel
 		np.setMaxValue(MainActivity.Delays.values().length - 1);
 
 		// set the saved position from the SharedPreferences

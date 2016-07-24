@@ -111,10 +111,10 @@ class SendMorseTask extends AsyncTask<String, String, Void> {
 
 		// update the snackbar with the currently sending letter
 		if (!value[0].equals("")){
-			_ttmFragment.showSnack(_main.getString(R.string.snackbar_letter_sending) + value[0].toUpperCase(),
+			_ttmFragment.showSnack(_main.getString(R.string.snack_letter_sending) + value[0].toUpperCase(),
 					Snackbar.LENGTH_INDEFINITE);
 		}else{
-			_ttmFragment.showSnack(_main.getString(R.string.snackbar_space_sending),
+			_ttmFragment.showSnack(_main.getString(R.string.snack_space_sending),
 					Snackbar.LENGTH_INDEFINITE);
 		}
 	}
