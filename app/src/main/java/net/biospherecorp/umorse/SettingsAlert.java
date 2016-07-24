@@ -11,9 +11,9 @@ import android.widget.NumberPicker;
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 import static net.biospherecorp.umorse.MainActivity.delayTime;
 
-public class SettingsAlert {
+class SettingsAlert {
 
-	public SettingsAlert(MainActivity activity) {
+	SettingsAlert(MainActivity activity) {
 		show(activity);
 	}
 

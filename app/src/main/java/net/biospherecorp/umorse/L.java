@@ -1,7 +1,9 @@
 package net.biospherecorp.umorse;
 
 import android.content.Context;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 // The whole point of this tool is to be able
@@ -26,6 +28,20 @@ public abstract class L{
 	static void m(String TAG, String message){
 		if (IS_ACTIVATED) {
 			Log.i(">>>> Message >>>> ", TAG + " : " + message);
+		}
+	}
+
+	// DEFAULT SNACKBAR
+	static void s(View view, String message){
+		if (IS_ACTIVATED) {
+			Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
+		}
+	}
+
+	// DEFAULT SNACKBAR (with TAG)
+	static void s(View view, String TAG, String message){
+		if (IS_ACTIVATED) {
+			Snackbar.make(view, TAG + message, Snackbar.LENGTH_LONG).show();
 		}
 	}
 

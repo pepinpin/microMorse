@@ -26,5 +26,7 @@
 	<string name="snack_sending_morse_code">Sending Morse code...</string>
 	<string name="snack_nothing_to_send">No Morse code to send</string>
 	<string name="snack_stop_sending">Stop sending Morse code !</string>
+	<string name="snackbar_letter_sending">"Sending : "</string>
+	<string name="snackbar_space_sending">(space)</string>
 
 </resources>

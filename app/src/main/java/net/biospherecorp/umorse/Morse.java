@@ -14,7 +14,7 @@ class Morse{
 
 	// the keys AND THE VALUES in the translation tables MUST be unique !!
 	private static Map<String, String> translationTable = new HashMap<>();
-	private static Map<String, String> translationTableReversed;
+	static Map<String, String> translationTableReversed;
 
 
 	private Morse(){}

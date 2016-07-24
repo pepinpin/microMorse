@@ -123,7 +123,7 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 				if (charSequence.length() <= MAX_NUMBER_OF_CHARS){
 
 					// update the chars counter
-					counterDisplay.setText(""+charSequence.length());
+					counterDisplay.setText(String.valueOf(charSequence.length()));
 
 					// translate the string
 					_morse.translateToMorse(TextToMorseFragment.this, charSequence.toString());
@@ -173,7 +173,8 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 					showSnack(getString(R.string.snack_sending_morse_code), Snackbar.LENGTH_INDEFINITE);
 
 					// send the morse code
-					_task = new SendMorseTask((MainActivity) (getActivity()));
+					_task = new SendMorseTask(((MainActivity) (getActivity())),
+							TextToMorseFragment.this);
 					_task.execute(_translatedString);
 				}else{
 
@@ -193,11 +194,6 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 		});
 	}
 
-//	@Override
-//	public void onResume() {
-//		super.onResume();
-//	}
-
 	@Override
 	public void onPause() {
 		super.onPause();
@@ -216,7 +212,6 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 
 		_translatedString = out;
 		_translatedTextView.setText(_translatedString);
-		L.m("Translated Text :", out);
 	}
 
 
@@ -272,7 +267,7 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 	}
 
 	// easier than constructing a snackbar every time
-	private void showSnack(String text, int duration){
+	void showSnack(String text, int duration){
 		snack.setText(text)
 				.setDuration(duration)
 				.show();
