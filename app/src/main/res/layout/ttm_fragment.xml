@@ -19,7 +19,6 @@
 		android:hint="@string/txt_to_translate"
 		android:gravity="start"
 
-
 		android:imeOptions="actionDone"
 		android:inputType="textImeMultiLine"
 

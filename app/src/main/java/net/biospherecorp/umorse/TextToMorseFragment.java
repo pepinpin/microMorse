@@ -10,11 +10,9 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.text.method.ScrollingMovementMethod;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -88,21 +86,9 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 		// set the max number of char in the editText
 		textToTranslate.setFilters(new InputFilter[]{new InputFilter.LengthFilter(MAX_NUMBER_OF_CHARS)});
 
-		// hide the keyboard when the enter/done button is pressed
-		textToTranslate.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-			@Override
-			public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-
-				// hide the keyboard when the enter key
-				// button is pressed
-					if (actionId == EditorInfo.IME_ACTION_DONE){
-					((MainActivity)getActivity()).hideSoftKeyboard();
-
-					return true;
-				}
-				return false;
-			}
-		});
+		// Allow multiline with done button
+		textToTranslate.setHorizontallyScrolling(false);
+		textToTranslate.setMaxLines(Integer.MAX_VALUE);
 
 		// set a TextChangeWatcher on the editText view
 		textToTranslate.addTextChangedListener(new TextWatcher() {

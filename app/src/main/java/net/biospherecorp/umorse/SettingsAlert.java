@@ -67,7 +67,7 @@ class SettingsAlert {
 		adb.setView(parent);
 
 		// set the onClickListener for the "Set" button
-		adb.setNeutralButton(R.string.settings_set_button, new DialogInterface.OnClickListener() {
+		adb.setPositiveButton(R.string.settings_set_button, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -84,7 +84,7 @@ class SettingsAlert {
 		});
 
 		// set the onClickListener for the "Cancel" button
-		adb.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+		adb.setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int i) {
 
