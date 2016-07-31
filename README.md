@@ -18,8 +18,6 @@ Available soon, for free, on Google Play market.
 - English
 - International Morse code :p
 
-### Know issues :
-- Graphical bug on Android KitKat (4.4) => menus aren't displayed properly but still usable
-
 ### Todo :
+- use a navigation drawer instead of a dropdown menu
 - use the camera to decode light emitted Morse Code
