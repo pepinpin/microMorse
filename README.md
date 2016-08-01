@@ -3,7 +3,8 @@
 # microMorse (µMorse)
 simple &amp; multilingual Morse code coder/sender/decoder for Android powered devices (phones and tablets).
 
-Available soon, for free, on Google Play market.
+Available for free on Google Play :
+[µMorse](https://play.google.com/store/apps/details?id=net.biospherecorp.umorse)
 
 ### Features :
 - Encode / decode Morse code on the fly
