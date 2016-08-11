@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import ru.katso.livebutton.LiveButton;
 
@@ -78,7 +79,7 @@ public class MorseToTextFragment extends Fragment implements TranslateMorseTask.
 		_morse = Morse.getInstance(getActivity());
 
 		// get the buttons from the view
-
+		TextView delButton = (TextView) view.findViewById(R.id.delButton);
 		LiveButton dotButton = (LiveButton) view.findViewById(R.id.dot_button);
 		LiveButton dashButton = (LiveButton) view.findViewById(R.id.dash_button);
 
@@ -101,10 +102,8 @@ public class MorseToTextFragment extends Fragment implements TranslateMorseTask.
 			public void onClick(View view) {
 				_toTranslate += ".";
 				_tmpString = _translatedTextView.getText().toString() + ".";
-				_translatedTextView.setText(_tmpString);
 
-				// force the cursor to show up at the end of the line
-				_translatedTextView.setSelection(_translatedTextView.getText().length());
+				displayTranslatedText(_tmpString);
 			}
 		});
 
@@ -115,10 +114,8 @@ public class MorseToTextFragment extends Fragment implements TranslateMorseTask.
 			public void onClick(View view) {
 				_toTranslate += "-";
 				_tmpString = _translatedTextView.getText().toString() + "-";
-				_translatedTextView.setText(_tmpString);
 
-				// force the cursor to show up at the end of the line
-				_translatedTextView.setSelection(_translatedTextView.getText().length());
+				displayTranslatedText(_tmpString);
 			}
 		});
 
@@ -149,6 +146,35 @@ public class MorseToTextFragment extends Fragment implements TranslateMorseTask.
 				// on this custom button
 			}
 		});
+
+
+		delButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+
+				_tmpString = _translatedTextView.getText().toString();
+
+				if (_tmpString.length() > 0){
+					_tmpString = _tmpString.substring(0, _tmpString.length() -1);
+					displayTranslatedText(_tmpString);
+
+					if (_toTranslate.length() > 0){
+						_toTranslate = _toTranslate.substring(0, _toTranslate.length() -1);
+					}
+				}
+			}
+		});
+
+	}
+
+
+	private void displayTranslatedText(String txt){
+
+		_translatedTextView.setText(txt);
+
+		// force the cursor to show up at the end of the line
+		_translatedTextView.setSelection(_translatedTextView.getText().length());
+
 	}
 
 
@@ -176,10 +202,8 @@ public class MorseToTextFragment extends Fragment implements TranslateMorseTask.
 		L.i("Translated Text :", _tmpString);
 
 		// set the textView
-		_translatedTextView.setText(_tmpString);
 
-		// force the cursor to show up at the end of the line
-		_translatedTextView.setSelection(_translatedTextView.getText().length());
+		displayTranslatedText(_tmpString);
 
 		// clear the string holding the text to translate
 		_toTranslate = "";
@@ -203,10 +227,8 @@ public class MorseToTextFragment extends Fragment implements TranslateMorseTask.
 		}else{
 			// if no text to translate, just add a normal space
 			_tmpString = _translatedTextView.getText().toString();
-			_translatedTextView.setText(_tmpString += " ");
 
-			// force the cursor to show up at the end of the line
-			_translatedTextView.setSelection(_translatedTextView.getText().length());
+			displayTranslatedText(_tmpString += " ");
 		}
 	}
 

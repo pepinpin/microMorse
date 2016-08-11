@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.constraint.ConstraintLayout
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:id="@+id/activity_main"
 	xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,7 +14,7 @@
 	<EditText
 		android:id="@+id/resultTextView"
 		android:background="@drawable/inactive_text_view"
-		android:layout_width="match_parent"
+		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:minHeight="150dp"
 		android:maxHeight="300dp"
@@ -36,25 +36,24 @@
 		android:paddingRight="@dimen/textview_horizontal_padding"
 		android:paddingEnd="@dimen/textview_horizontal_padding"
 
-		android:layout_marginTop="@dimen/activity_vertical_margin"
-
-		android:layout_marginStart="@dimen/activity_horizontal_margin"
-		android:layout_marginLeft="@dimen/activity_horizontal_margin"
-
-		android:layout_marginEnd="@dimen/activity_horizontal_margin"
-		android:layout_marginRight="@dimen/activity_horizontal_margin"
-
-		android:layout_alignParentTop="true"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentStart="true"
-		/>
+		app:layout_constraintLeft_toLeftOf="@+id/activity_main"
+		android:layout_marginLeft="16dp"
+		android:layout_marginStart="16dp"
+		tools:layout_constraintLeft_creator="1"
+		app:layout_constraintTop_toTopOf="@+id/activity_main"
+		android:layout_marginTop="16dp"
+		tools:layout_constraintTop_creator="1"
+		app:layout_constraintRight_toRightOf="@+id/activity_main"
+		android:layout_marginRight="16dp"
+		android:layout_marginEnd="16dp"
+		tools:layout_constraintRight_creator="1"/>
 
 	<view
 		android:id="@+id/dot_button"
 		class="ru.katso.livebutton.LiveButton"
 
-		android:layout_width="70dp"
-		android:layout_height="70dp"
+		android:layout_width="90dp"
+		android:layout_height="90dp"
 
 		android:text="."
 		android:textColor="@color/colorAccent"
@@ -67,51 +66,20 @@
 		app:backgroundColor="@color/colorPrimary"
 		app:shadowColor="@color/colorPrimaryDark"
 
-		android:layout_marginTop="47dp"
-		android:layout_marginLeft="33dp"
-		android:layout_marginStart="33dp"
-
-		android:layout_below="@+id/resultTextView"
-		android:layout_alignLeft="@+id/space_button"
-		android:layout_alignStart="@+id/space_button"
-		android:layout_centerHorizontal="true"
-
-		/>
-
-	<view
-		android:id="@+id/dash_button"
-		class="ru.katso.livebutton.LiveButton"
-
-		android:layout_width="70dp"
-		android:layout_height="70dp"
-
-		android:text="-"
-		android:textColor="@color/colorAccent"
-		android:textStyle="bold"
-		android:textSize="70sp"
-
-		app:corners="20dp"
-		app:normalHeight="6dp"
-		app:pressedHeight="2dp"
-		app:backgroundColor="@color/colorPrimary"
-		app:shadowColor="@color/colorPrimaryDark"
-
-		android:layout_marginRight="30dp"
-		android:layout_marginEnd="30dp"
-
-		android:layout_alignTop="@+id/dot_button"
-		android:layout_alignRight="@+id/space_button"
-		android:layout_alignEnd="@+id/space_button"
-		android:layout_alignBottom="@+id/dot_button"
-
-		android:layout_centerHorizontal="true"
-		/>
+		app:layout_constraintLeft_toLeftOf="@+id/activity_main"
+		android:layout_marginLeft="49dp"
+		android:layout_marginStart="49dp"
+		tools:layout_constraintLeft_creator="1"
+		app:layout_constraintTop_toTopOf="@+id/activity_main"
+		tools:layout_constraintTop_creator="1"
+		app:layout_constraintBottom_toBottomOf="@+id/activity_main"
+		tools:layout_constraintBottom_creator="1"/>
 
 	<view
 		android:id="@+id/space_button"
 		class="ru.katso.livebutton.LiveButton"
 
-		android:layout_width="match_parent"
+		android:layout_width="0dp"
 		android:layout_height="80dp"
 
 		android:text="@string/space_button_text"
@@ -127,27 +95,80 @@
 
 		android:includeFontPadding="false"
 
-		android:layout_marginStart="16dp"
-		android:layout_marginLeft="16dp"
-		android:layout_marginEnd="16dp"
-		android:layout_marginRight="16dp"
-		android:layout_marginBottom="-140dp"
-
-		android:layout_alignBottom="@+id/dash_button"
-		android:layout_centerHorizontal="true"
+		app:layout_constraintLeft_toLeftOf="@+id/resultTextView"
+		tools:layout_constraintLeft_creator="1"
+		app:layout_constraintTop_toBottomOf="@+id/resultTextView"
+		android:layout_marginTop="180dp"
+		tools:layout_constraintTop_creator="1"
+		app:layout_constraintRight_toRightOf="@+id/resultTextView"
+		tools:layout_constraintRight_creator="1"
 		/>
 
 	<TextView
 		android:id="@+id/textView"
 		android:text="@string/space_text"
 
-		android:layout_width="match_parent"
+		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:gravity="center"
 
-		android:layout_marginBottom="-60dp"
-		android:layout_alignBottom="@+id/space_button"
-		/>
+		app:layout_constraintLeft_toLeftOf="@+id/activity_main"
+		tools:layout_constraintLeft_creator="1"
+		app:layout_constraintRight_toRightOf="@+id/activity_main"
+		tools:layout_constraintRight_creator="1"
+		app:layout_constraintBottom_toBottomOf="@+id/activity_main"
+		android:layout_marginBottom="30dp"
+		tools:layout_constraintBottom_creator="1"/>
+
+	<TextView
+		android:id="@+id/delButton"
+		android:text="del"
+		android:textColor="@color/delButton"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+
+		android:paddingTop="@dimen/textview_vertical_padding"
+		android:paddingBottom="@dimen/textview_vertical_padding"
+
+		android:paddingLeft="@dimen/textview_horizontal_padding"
+		android:paddingStart="@dimen/textview_horizontal_padding"
+
+		android:paddingRight="@dimen/textview_horizontal_padding"
+		android:paddingEnd="@dimen/textview_horizontal_padding"
 
 
-</RelativeLayout>
+		app:layout_constraintRight_toRightOf="@+id/resultTextView"
+		tools:layout_constraintRight_creator="1"
+		app:layout_constraintBottom_toBottomOf="@+id/resultTextView"
+		android:layout_marginBottom="1dp"
+		tools:layout_constraintBottom_creator="1"/>
+
+	<view
+		android:id="@+id/dash_button"
+		class="ru.katso.livebutton.LiveButton"
+
+		android:layout_width="90dp"
+		android:layout_height="90dp"
+
+		android:text="-"
+		android:textColor="@color/colorAccent"
+		android:textStyle="bold"
+		android:textSize="70sp"
+
+		app:corners="20dp"
+		app:normalHeight="6dp"
+		app:pressedHeight="2dp"
+		app:backgroundColor="@color/colorPrimary"
+		app:shadowColor="@color/colorPrimaryDark"
+
+		app:layout_constraintTop_toTopOf="@+id/activity_main"
+		tools:layout_constraintTop_creator="1"
+		app:layout_constraintRight_toRightOf="@+id/activity_main"
+		android:layout_marginRight="51dp"
+		android:layout_marginEnd="51dp"
+		tools:layout_constraintRight_creator="1"
+		app:layout_constraintBottom_toBottomOf="@+id/activity_main"
+		tools:layout_constraintBottom_creator="1"/>
+
+
+</android.support.constraint.ConstraintLayout>

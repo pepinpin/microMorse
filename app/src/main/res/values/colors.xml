@@ -9,4 +9,7 @@
 
 <color name="sendButtonNotSending">@color/colorPrimary</color>
 <color name="sendButtonSending">@color/colorAccent</color>
+
+
+<color name="delButton">#42a5f5</color>
 </resources>
