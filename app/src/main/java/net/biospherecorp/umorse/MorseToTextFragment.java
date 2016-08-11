@@ -12,7 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
 
 import ru.katso.livebutton.LiveButton;
 
@@ -27,7 +27,7 @@ public class MorseToTextFragment extends Fragment implements TranslateMorseTask.
 	private Morse _morse;
 
 	// the TextView who will display the result of the translation
-	private TextView _translatedTextView;
+	private EditText _translatedTextView;
 
 	// the string holding the symbols to translate
 	private String _toTranslate = "";
@@ -85,7 +85,11 @@ public class MorseToTextFragment extends Fragment implements TranslateMorseTask.
 		final Button spaceButton = (Button) view.findViewById(R.id.space_button);
 
 		// get the TextView from the view
-		_translatedTextView = (TextView) view.findViewById(R.id.resultTextView);
+		_translatedTextView = (EditText) view.findViewById(R.id.resultTextView);
+
+		// force the cursor to show at the beginning of the line
+		_translatedTextView.setSelection(0);
+		_translatedTextView.requestFocus();
 
 		// turns the vertical scrolling on
 		_translatedTextView.setMovementMethod(new ScrollingMovementMethod());
@@ -98,6 +102,9 @@ public class MorseToTextFragment extends Fragment implements TranslateMorseTask.
 				_toTranslate += ".";
 				_tmpString = _translatedTextView.getText().toString() + ".";
 				_translatedTextView.setText(_tmpString);
+
+				// force the cursor to show up at the end of the line
+				_translatedTextView.setSelection(_translatedTextView.getText().length());
 			}
 		});
 
@@ -109,6 +116,9 @@ public class MorseToTextFragment extends Fragment implements TranslateMorseTask.
 				_toTranslate += "-";
 				_tmpString = _translatedTextView.getText().toString() + "-";
 				_translatedTextView.setText(_tmpString);
+
+				// force the cursor to show up at the end of the line
+				_translatedTextView.setSelection(_translatedTextView.getText().length());
 			}
 		});
 
@@ -168,6 +178,9 @@ public class MorseToTextFragment extends Fragment implements TranslateMorseTask.
 		// set the textView
 		_translatedTextView.setText(_tmpString);
 
+		// force the cursor to show up at the end of the line
+		_translatedTextView.setSelection(_translatedTextView.getText().length());
+
 		// clear the string holding the text to translate
 		_toTranslate = "";
 
@@ -187,6 +200,13 @@ public class MorseToTextFragment extends Fragment implements TranslateMorseTask.
 
 			// start the ASyncTask
 			_morse.translateToText(this, _toTranslate);
+		}else{
+			// if no text to translate, just add a normal space
+			_tmpString = _translatedTextView.getText().toString();
+			_translatedTextView.setText(_tmpString += " ");
+
+			// force the cursor to show up at the end of the line
+			_translatedTextView.setSelection(_translatedTextView.getText().length());
 		}
 	}
 

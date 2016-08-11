@@ -11,15 +11,17 @@
 	android:weightSum="1">
 
 
-	<TextView
+	<EditText
 		android:id="@+id/resultTextView"
 		android:background="@drawable/inactive_text_view"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:minHeight="150dp"
 		android:maxHeight="300dp"
+		android:gravity="top"
 
 		android:hint="@string/translated_text"
+		android:inputType="textMultiLine|textNoSuggestions"
 		android:textIsSelectable="true"
 		android:textSize="14sp"
 
