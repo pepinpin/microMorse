@@ -15,14 +15,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class TextToMorseFragment extends Fragment implements TranslateMorseTask.AsyncResponse{
 
+	private static boolean REPEAT_SEND = false;
+
 	private Morse _morse;
 	private SendMorseTask _task;
-	//
+
 	private EditText textToTranslate;
+	private FloatingActionButton repeatButton;
 	private FloatingActionButton sendButton;
 
 	private TextView _translatedTextView;
@@ -36,6 +40,9 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 	// the colors used for the button
 	private int sendingColor;
 	private int notSendingColor;
+
+	private int repeatOnColor;
+	private int repeatOffColor;
 
 	// is it actually sending morse
 	private boolean isSending = false;
@@ -123,10 +130,38 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 		});
 
 
+	// Repeat Button
+		//
+		// the colors
+		repeatOnColor = getResources().getColor(R.color.repeatButtonOn);
+		repeatOffColor = getResources().getColor(R.color.repeatButtonOff);
+
+		// the Floating Action Button => repeat button
+		repeatButton = (FloatingActionButton) view.findViewById(R.id.repeatButton);
+
+		// set the color
+		repeatButton.setBackgroundTintList(ColorStateList.valueOf(repeatOffColor));
+
+		repeatButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+
+				REPEAT_SEND = !REPEAT_SEND;
+
+				// set the bkg color
+				if (REPEAT_SEND){
+					repeatButton.setBackgroundTintList(ColorStateList.valueOf(repeatOnColor));
+					Toast.makeText(getActivity(), "Repeat is ON", Toast.LENGTH_SHORT).show();
+				}else{
+					repeatButton.setBackgroundTintList(ColorStateList.valueOf(repeatOffColor));
+					Toast.makeText(getActivity(), "Repeat is OFF", Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
+
 
 	// Send Button
 		//
-
 		// Colors for the send button
 		//
 		sendingColor = getResources().getColor(R.color.sendButtonSending);
@@ -191,8 +226,8 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 		}
 	}
 
-
 	// called by the TranslateMorseTask asyncTask
+	//
 	@Override
 	public void processResponse(String out) {
 
@@ -200,6 +235,23 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 		_translatedTextView.setText(_translatedString);
 	}
 
+	// Called by the sendMorseCode AsyncTask
+	//
+	void processPostExecute(){
+
+		if (REPEAT_SEND){
+
+			cancelTasks();
+
+			// send the morse code
+			_task = new SendMorseTask(((MainActivity) (getActivity())),
+					TextToMorseFragment.this);
+			_task.execute(_translatedString);
+		}else{
+
+			stopSending();
+		}
+	}
 
 	// stop everything,
 	// reset the button
@@ -214,15 +266,18 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 		// show the snack
 		showSnack(getString(R.string.snack_stop_sending), 500);
 
+		cancelTasks();
+	}
+
+	private void cancelTasks(){
+
 		// if a task is running,
 		// cancel it
 		if (_task != null){
 			_task.cancel(true);
 			_task = null;
 		}
-
 	}
-
 
 	// set the button is a specific state (sending/ not sending)
 	private void setButton(boolean isSending){

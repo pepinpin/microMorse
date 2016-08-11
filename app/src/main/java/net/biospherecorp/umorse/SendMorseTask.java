@@ -34,7 +34,6 @@ class SendMorseTask extends AsyncTask<String, String, Void> {
 		_camera = new SimpleCamera(_main);
 
 		if(!_camera.initCamera()){
-//			_main.stopSending();
 			stopSendingMorse();
 		}
 
@@ -123,9 +122,8 @@ class SendMorseTask extends AsyncTask<String, String, Void> {
 	protected void onPostExecute(Void aVoid) {
 		super.onPostExecute(aVoid);
 
-		// stop the tasks and reset the button
-		//_main.stopSending();
-		stopSendingMorse();
+		TextToMorseFragment frag = (TextToMorseFragment) _main.getFragmentManager().findFragmentByTag("ttm");
+		frag.processPostExecute();
 
 	}
 

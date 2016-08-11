@@ -73,15 +73,13 @@ public class MorseToTextFragment extends Fragment implements TranslateMorseTask.
 		// Instantiate the vibrator
 		mVib = (Vibrator) getActivity().getSystemService(VIBRATOR_SERVICE);
 
-
-
 		// Instantiate the Morse object, that will handle the translations (MTT and TTM)
 		_morse = Morse.getInstance(getActivity());
 
 		// get the buttons from the view
-		TextView delButton = (TextView) view.findViewById(R.id.delButton);
-		LiveButton dotButton = (LiveButton) view.findViewById(R.id.dot_button);
-		LiveButton dashButton = (LiveButton) view.findViewById(R.id.dash_button);
+		final TextView delButton = (TextView) view.findViewById(R.id.delButton);
+		final LiveButton dotButton = (LiveButton) view.findViewById(R.id.dot_button);
+		final LiveButton dashButton = (LiveButton) view.findViewById(R.id.dash_button);
 
 		final Button spaceButton = (Button) view.findViewById(R.id.space_button);
 

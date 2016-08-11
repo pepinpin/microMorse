@@ -10,6 +10,8 @@
 <color name="sendButtonNotSending">@color/colorPrimary</color>
 <color name="sendButtonSending">@color/colorAccent</color>
 
-
 <color name="delButton">#42a5f5</color>
+
+<color name="repeatButtonOn">#8c9eff</color>
+<color name="repeatButtonOff">#1565c0</color>
 </resources>

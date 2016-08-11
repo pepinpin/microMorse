@@ -21,11 +21,11 @@ public class MainActivity extends AppCompatActivity{
 	// Enum holding the name and values for the emitting speed
 	// used in the settings
 	enum Delays{
-		VERY_FAST(R.string.emitting_speed_very_fast ,600),
-		FAST(R.string.emitting_speed_fast,800),
-		NORMAL(R.string.emitting_speed_normal, 1000),
+		VERY_FAST(R.string.emitting_speed_very_fast ,300),
+		FAST(R.string.emitting_speed_fast,600),
+		NORMAL(R.string.emitting_speed_normal, 900),
 		SLOW(R.string.emitting_speed_slow, 1200),
-		VERY_SLOW(R.string.emitting_speed_very_slow, 1400);
+		VERY_SLOW(R.string.emitting_speed_very_slow, 1500);
 
 		int name;
 		int speed;
