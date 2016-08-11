@@ -89,7 +89,6 @@ public class MorseToTextFragment extends Fragment implements TranslateMorseTask.
 		// turns the vertical scrolling on
 		_translatedTextView.setMovementMethod(new ScrollingMovementMethod());
 
-
 		// the dot button
 		dotButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -192,7 +191,6 @@ public class MorseToTextFragment extends Fragment implements TranslateMorseTask.
 		L.i("Translated Text :", _tmpString);
 
 		// set the textView
-
 		_displayTranslatedText(_tmpString);
 
 		// clear the string holding the text to translate
@@ -229,7 +227,6 @@ public class MorseToTextFragment extends Fragment implements TranslateMorseTask.
 
 		// force the cursor to show up at the end of the line
 		_translatedTextView.setSelection(_translatedTextView.getText().length());
-
 	}
 
 	// called by the space button
