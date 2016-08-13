@@ -1,12 +1,10 @@
 package net.biospherecorp.umorse;
 
-import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.inputmethod.InputMethodManager;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
@@ -40,9 +38,10 @@ public class MainActivity extends AppCompatActivity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		setTitle(R.string.app_name);
+
 		// get the "default" speed from SharedPreferences
 		delayTime = Delays.values()[loadDelayPositionFromSharedPreferences()].speed;
-
 
 		// create and display the default fragment (ttm)
 		TextToMorseFragment ttmFragment = new TextToMorseFragment();
@@ -62,9 +61,6 @@ public class MainActivity extends AppCompatActivity{
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-
-		// hide the keyboard when menu is clicked
-		hideSoftKeyboard();
 
 		switch(item.getItemId()){
 			case R.id.ttm_menu:
@@ -103,19 +99,5 @@ public class MainActivity extends AppCompatActivity{
 	int loadDelayPositionFromSharedPreferences(){
 		SharedPreferences sharedPreferences = getDefaultSharedPreferences(this);
 		return sharedPreferences.getInt("delay", 0);
-	}
-
-	// hide the soft keyboard
-	//
-	// called when the done button (from the TTM fragment) is pressed
-	// or when the menu is showing
-	void hideSoftKeyboard() {
-
-		InputMethodManager inputMethodManager =
-				(InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-
-		if (getCurrentFocus() != null){
-			inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-		}
 	}
 }

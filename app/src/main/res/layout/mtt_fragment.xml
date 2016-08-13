@@ -15,10 +15,12 @@
 		android:id="@+id/resultTextView"
 		android:background="@drawable/inactive_text_view"
 		android:layout_width="0dp"
-		android:layout_height="wrap_content"
+		android:layout_height="140dp"
 		android:minHeight="150dp"
 		android:maxHeight="300dp"
 		android:gravity="top"
+
+		android:maxLength="200"
 
 		android:hint="@string/translated_text"
 		android:inputType="textMultiLine|textNoSuggestions"
@@ -46,7 +48,8 @@
 		app:layout_constraintRight_toRightOf="@+id/activity_main"
 		android:layout_marginRight="16dp"
 		android:layout_marginEnd="16dp"
-		tools:layout_constraintRight_creator="1"/>
+		tools:layout_constraintRight_creator="1"
+		/>
 
 	<view
 		android:id="@+id/dot_button"
@@ -73,7 +76,8 @@
 		app:layout_constraintTop_toTopOf="@+id/activity_main"
 		tools:layout_constraintTop_creator="1"
 		app:layout_constraintBottom_toBottomOf="@+id/activity_main"
-		tools:layout_constraintBottom_creator="1"/>
+		tools:layout_constraintBottom_creator="1"
+		/>
 
 	<view
 		android:id="@+id/space_button"
@@ -118,7 +122,8 @@
 		tools:layout_constraintRight_creator="1"
 		app:layout_constraintBottom_toBottomOf="@+id/activity_main"
 		android:layout_marginBottom="30dp"
-		tools:layout_constraintBottom_creator="1"/>
+		tools:layout_constraintBottom_creator="1"
+		/>
 
 	<TextView
 		android:id="@+id/delButton"
@@ -141,7 +146,8 @@
 		tools:layout_constraintRight_creator="1"
 		app:layout_constraintBottom_toBottomOf="@+id/resultTextView"
 		android:layout_marginBottom="1dp"
-		tools:layout_constraintBottom_creator="1"/>
+		tools:layout_constraintBottom_creator="1"
+		/>
 
 	<view
 		android:id="@+id/dash_button"
@@ -168,7 +174,8 @@
 		android:layout_marginEnd="51dp"
 		tools:layout_constraintRight_creator="1"
 		app:layout_constraintBottom_toBottomOf="@+id/activity_main"
-		tools:layout_constraintBottom_creator="1"/>
+		tools:layout_constraintBottom_creator="1"
+		/>
 
 
 </android.support.constraint.ConstraintLayout>

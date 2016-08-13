@@ -18,16 +18,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class TextToMorseFragment extends Fragment implements TranslateMorseTask.AsyncResponse{
+public class TextToMorseFragment extends Fragment implements TranslateMorseTask.Delegate, SendMorseTask.Delegate{
 
 	private static boolean REPEAT_SEND = false;
 
 	private Morse _morse;
 	private SendMorseTask _task;
 
-	private EditText textToTranslate;
-	private FloatingActionButton repeatButton;
-	private FloatingActionButton sendButton;
+	private EditText _textToTranslate;
+	private FloatingActionButton _repeatButton,  _sendButton;
 
 	private TextView _translatedTextView;
 
@@ -37,22 +36,18 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 	// string holding the text to translate
 	private String _translatedString = "";
 
-	// the colors used for the button
-	private int sendingColor;
-	private int notSendingColor;
-
-	private int repeatOnColor;
-	private int repeatOffColor;
+	// the colors used for the buttons
+	private int _sendingColor,  _notSendingColor,  _repeatOnColor, _repeatOffColor;
 
 	// is it actually sending morse
-	private boolean isSending = false;
+	private boolean _isSending = false;
 
 	// to display sending status
 	//
 	// declared globally so the text
 	// can be updated without recreating
 	// a new one (no useless animation)
-	private Snackbar snack;
+	private Snackbar _snack;
 
 
 
@@ -88,21 +83,21 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 
 	// EditText view
 		//
-		textToTranslate = (EditText) view.findViewById(R.id.toTranslateEditText);
+		_textToTranslate = (EditText) view.findViewById(R.id.toTranslateEditText);
 
 		// set the max number of char in the editText
-		textToTranslate.setFilters(new InputFilter[]{new InputFilter.LengthFilter(MAX_NUMBER_OF_CHARS)});
+		_textToTranslate.setFilters(new InputFilter[]{new InputFilter.LengthFilter(MAX_NUMBER_OF_CHARS)});
 
 		// Allow multiline with done button
-		textToTranslate.setHorizontallyScrolling(false);
-		textToTranslate.setMaxLines(Integer.MAX_VALUE);
+		_textToTranslate.setHorizontallyScrolling(false);
+		_textToTranslate.setMaxLines(Integer.MAX_VALUE);
 
 		// set a TextChangeWatcher on the editText view
-		textToTranslate.addTextChangedListener(new TextWatcher() {
+		_textToTranslate.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-				// clear the translatedTextView if textToTranslate is empty
+				// clear the translatedTextView if _textToTranslate is empty
 				if (charSequence.length() <= 1){
 					_translatedTextView.setText("");
 					_translatedString ="";
@@ -133,16 +128,16 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 	// Repeat Button
 		//
 		// the colors
-		repeatOnColor = getResources().getColor(R.color.repeatButtonOn);
-		repeatOffColor = getResources().getColor(R.color.repeatButtonOff);
+		_repeatOnColor = getResources().getColor(R.color.repeatButtonOn);
+		_repeatOffColor = getResources().getColor(R.color.repeatButtonOff);
 
 		// the Floating Action Button => repeat button
-		repeatButton = (FloatingActionButton) view.findViewById(R.id.repeatButton);
+		_repeatButton = (FloatingActionButton) view.findViewById(R.id.repeatButton);
 
 		// set the color
-		repeatButton.setBackgroundTintList(ColorStateList.valueOf(repeatOffColor));
+		_repeatButton.setBackgroundTintList(ColorStateList.valueOf(_repeatOffColor));
 
-		repeatButton.setOnClickListener(new View.OnClickListener() {
+		_repeatButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 
@@ -150,10 +145,10 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 
 				// set the bkg color
 				if (REPEAT_SEND){
-					repeatButton.setBackgroundTintList(ColorStateList.valueOf(repeatOnColor));
+					_repeatButton.setBackgroundTintList(ColorStateList.valueOf(_repeatOnColor));
 					Toast.makeText(getActivity(), "Repeat is ON", Toast.LENGTH_SHORT).show();
 				}else{
-					repeatButton.setBackgroundTintList(ColorStateList.valueOf(repeatOffColor));
+					_repeatButton.setBackgroundTintList(ColorStateList.valueOf(_repeatOffColor));
 					Toast.makeText(getActivity(), "Repeat is OFF", Toast.LENGTH_SHORT).show();
 				}
 			}
@@ -164,33 +159,33 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 		//
 		// Colors for the send button
 		//
-		sendingColor = getResources().getColor(R.color.sendButtonSending);
-		notSendingColor = getResources().getColor(R.color.sendButtonNotSending);
+		_sendingColor = getResources().getColor(R.color.sendButtonSending);
+		_notSendingColor = getResources().getColor(R.color.sendButtonNotSending);
 
 		// the Floating Action Button => send button
-		sendButton = (FloatingActionButton) view.findViewById(R.id.sendMorseCodeButton);
+		_sendButton = (FloatingActionButton) view.findViewById(R.id.sendMorseCodeButton);
 
 		// set the bkg image
-		sendButton.setImageResource(android.R.drawable.ic_media_play);
+		_sendButton.setImageResource(android.R.drawable.ic_media_play);
 		// set the bkg color
-		sendButton.setBackgroundTintList(ColorStateList.valueOf(notSendingColor));
+		_sendButton.setBackgroundTintList(ColorStateList.valueOf(_notSendingColor));
 
-		// the snack that is going to be shown
-		snack = Snackbar.make(sendButton, "placeholder", Snackbar.LENGTH_SHORT);
+		// the _snack that is going to be shown
+		_snack = Snackbar.make(_sendButton, "placeholder", Snackbar.LENGTH_SHORT);
 
 		// set the onClickListener
-		sendButton.setOnClickListener(new View.OnClickListener() {
+		_sendButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 
 				// if NOT sending and text NOT empty
-				if (!isSending && !_translatedString.equals("")){
+				if (!_isSending && !_translatedString.equals("")){
 
 					// change the state of the button
-					isSending = true;
-					toggleButton();
+					_isSending = true;
+					_toggleButton();
 
-					// show the snack
+					// show the _snack
 					showSnack("...", Snackbar.LENGTH_INDEFINITE);
 
 					// send the morse code
@@ -221,7 +216,7 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 
 		// if morse code is being sent,
 		// stop it all and reset the button
-		if (isSending){
+		if (_isSending){
 			stopSending();
 		}
 	}
@@ -229,7 +224,7 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 	// called by the TranslateMorseTask asyncTask
 	//
 	@Override
-	public void processResponse(String out) {
+	public void processTranslationTask(String out) {
 
 		_translatedString = out;
 		_translatedTextView.setText(_translatedString);
@@ -237,11 +232,12 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 
 	// Called by the sendMorseCode AsyncTask
 	//
-	void processPostExecute(){
+	@Override
+	public void processSendingTask(){
 
 		if (REPEAT_SEND){
 
-			cancelTasks();
+			_cancelTasks();
 
 			// send the morse code
 			_task = new SendMorseTask(((MainActivity) (getActivity())),
@@ -255,21 +251,22 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 
 	// stop everything,
 	// reset the button
-	// display a snack
+	// display a _snack
 	//
-	void stopSending(){
+	@Override
+	public void stopSending(){
 
 		// toggle the button back
 		// to the not sending state
-		setButton(false);
+		_setButton(false);
 
-		// show the snack
+		// show the _snack
 		showSnack(getString(R.string.snack_stop_sending), 500);
 
-		cancelTasks();
+		_cancelTasks();
 	}
 
-	private void cancelTasks(){
+	private void _cancelTasks(){
 
 		// if a task is running,
 		// cancel it
@@ -280,36 +277,36 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 	}
 
 	// set the button is a specific state (sending/ not sending)
-	private void setButton(boolean isSending){
-		this.isSending = isSending;
-		toggleButton();
+	private void _setButton(boolean isSending){
+		this._isSending = isSending;
+		_toggleButton();
 	}
 
 	// toggle mechanism
-	private void toggleButton(){
+	private void _toggleButton(){
 
-		if(sendButton != null &&
-				textToTranslate != null){
+		if(_sendButton != null &&
+				_textToTranslate != null){
 
-			if (!isSending){
+			if (!_isSending){
 
-				textToTranslate.setEnabled(true);
+				_textToTranslate.setEnabled(true);
 
-				sendButton.setBackgroundTintList(ColorStateList.valueOf(notSendingColor));
-				sendButton.setImageResource(android.R.drawable.ic_media_play);
+				_sendButton.setBackgroundTintList(ColorStateList.valueOf(_notSendingColor));
+				_sendButton.setImageResource(android.R.drawable.ic_media_play);
 			}else{
 
-				textToTranslate.setEnabled(false);
+				_textToTranslate.setEnabled(false);
 
-				sendButton.setBackgroundTintList(ColorStateList.valueOf(sendingColor));
-				sendButton.setImageResource(android.R.drawable.ic_delete);
+				_sendButton.setBackgroundTintList(ColorStateList.valueOf(_sendingColor));
+				_sendButton.setImageResource(android.R.drawable.ic_delete);
 			}
 		}
 	}
 
 	// easier than constructing a snackbar every time
 	void showSnack(String text, int duration){
-		snack.setText(text)
+		_snack.setText(text)
 				.setDuration(duration)
 				.show();
 	}

@@ -16,22 +16,22 @@ class TranslateMorseTask extends AsyncTask<String, Void, String> {
 	// 1 space between words = 7 units
 
 	// delegation design pattern
-	interface AsyncResponse{
-		void processResponse (String out);
+	interface Delegate{
+		void processTranslationTask (String out);
 	}
 
 	// true = translate from text to Morse
 	// false = translate from Morse to text
-	private boolean textToMorse = false;
+	private boolean _textToMorse = false;
 
-	private AsyncResponse delegate;
-	private Map<String, String> translationTable = new HashMap<>();
+	private Delegate _delegate;
+	private Map<String, String> _translationTable = new HashMap<>();
 
 
-	TranslateMorseTask(AsyncResponse delegate, Map<String, String> translationTable, boolean translateToMorse) {
-		this.delegate = delegate;
-		this.translationTable = translationTable;
-		this.textToMorse = translateToMorse;
+	TranslateMorseTask(Delegate delegate, Map<String, String> translationTable, boolean translateToMorse) {
+		this._delegate = delegate;
+		this._translationTable = translationTable;
+		this._textToMorse = translateToMorse;
 	}
 
 	// only the first argument will be processed
@@ -42,7 +42,7 @@ class TranslateMorseTask extends AsyncTask<String, Void, String> {
 		String result = "";
 
 		// if text to morse
-		if(textToMorse){
+		if(_textToMorse){
 
 			String previousChar = "";
 
@@ -64,7 +64,7 @@ class TranslateMorseTask extends AsyncTask<String, Void, String> {
 						result += "   ";
 					}
 
-					result += getCharInTable(currentChar);
+					result += _getCharInTable(currentChar);
 
 					// store the char so it can be evaluated during next iteration
 					previousChar = currentChar;
@@ -74,7 +74,7 @@ class TranslateMorseTask extends AsyncTask<String, Void, String> {
 		// if morse to text
 		}else{
 			// just get the translated character from the translation table
-			result += getCharInTable(messagesToTranslate[0]);
+			result += _getCharInTable(messagesToTranslate[0]);
 		}
 
 		// return the string
@@ -87,16 +87,15 @@ class TranslateMorseTask extends AsyncTask<String, Void, String> {
 	protected void onPostExecute(String strings) {
 		super.onPostExecute(strings);
 
-		delegate.processResponse(strings);
-
+		_delegate.processTranslationTask(strings);
 	}
 
-	private String getCharInTable(String currentChar){
+	private String _getCharInTable(String currentChar){
 
 		String result = "";
 
 		// get the translated currentChar from the translation table
-		String translatedChar = translationTable.get(currentChar);
+		String translatedChar = _translationTable.get(currentChar);
 
 		// if this currentChar isn't null
 		if (translatedChar != null){

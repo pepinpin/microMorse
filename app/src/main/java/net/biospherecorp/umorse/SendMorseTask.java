@@ -15,8 +15,15 @@ import net.biospherecorp.umorse.SimpleCamera.FlashLight;
 
 class SendMorseTask extends AsyncTask<String, String, Void> {
 
+	// delegation design pattern
+	interface Delegate{
+		void processSendingTask ();
+		void stopSending();
+	}
+
 	private MainActivity _main;
 	private TextToMorseFragment _ttmFragment;
+	private Delegate _delegate;
 
 	private SimpleCamera _camera;
 	private FlashLight _flashLight;
@@ -34,7 +41,7 @@ class SendMorseTask extends AsyncTask<String, String, Void> {
 		_camera = new SimpleCamera(_main);
 
 		if(!_camera.initCamera()){
-			stopSendingMorse();
+			_stopSendingMorse();
 		}
 
 		// get the flashlight
@@ -59,7 +66,7 @@ class SendMorseTask extends AsyncTask<String, String, Void> {
 
 					// get the letter from the Reversed Translation Table &
 					// display it in the snackbar
-					publishProgress(Morse.translationTableReversed.get(letter));
+					publishProgress(Morse.REVERSED_TRANSLATION_TABLE.get(letter));
 
 					// split the morse encoded letter into symbols (dots & dashes)
 					for(String symbol : letter.split("")){
@@ -99,7 +106,7 @@ class SendMorseTask extends AsyncTask<String, String, Void> {
 		}finally {
 			// release the camera
 			// & clear the flashlight
-			clearAll();
+			_clearAll();
 		}
 
 		return null;
@@ -108,7 +115,7 @@ class SendMorseTask extends AsyncTask<String, String, Void> {
 	@Override
 	protected void onProgressUpdate(String... value) {
 
-		// update the snackbar with the currently sending letter
+		// update the snackBar with the currently sending letter
 		if (!value[0].equals("")){
 			_ttmFragment.showSnack(_main.getString(R.string.snack_letter_sending) + value[0].toUpperCase(),
 					Snackbar.LENGTH_INDEFINITE);
@@ -122,14 +129,13 @@ class SendMorseTask extends AsyncTask<String, String, Void> {
 	protected void onPostExecute(Void aVoid) {
 		super.onPostExecute(aVoid);
 
-		TextToMorseFragment frag = (TextToMorseFragment) _main.getFragmentManager().findFragmentByTag("ttm");
-		frag.processPostExecute();
-
+		_delegate = (TextToMorseFragment) _main.getFragmentManager().findFragmentByTag("ttm");
+		_delegate.processSendingTask();
 	}
 
 	// release the camera and reset
 	// the camera & flashlight variables
-	private void clearAll(){
+	private void _clearAll(){
 		if (_camera != null){
 			_camera.releaseCamera();
 			_camera = null;
@@ -140,9 +146,9 @@ class SendMorseTask extends AsyncTask<String, String, Void> {
 	// stop sending morse code procedure
 	// (clear the task, reset the button and
 	// the "isSending" variable & show a message
-	// in the snackbar)
-	private void stopSendingMorse(){
-		TextToMorseFragment frag = (TextToMorseFragment) _main.getFragmentManager().findFragmentByTag("ttm");
-		frag.stopSending();
+	// in the snackBar)
+	private void _stopSendingMorse(){
+		_delegate = (TextToMorseFragment) _main.getFragmentManager().findFragmentByTag("ttm");
+		_delegate.stopSending();
 	}
 }

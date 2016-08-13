@@ -20,7 +20,7 @@ import ru.katso.livebutton.LiveButton;
 import static android.content.Context.VIBRATOR_SERVICE;
 
 
-public class MorseToTextFragment extends Fragment implements TranslateMorseTask.AsyncResponse,
+public class MorseToTextFragment extends Fragment implements TranslateMorseTask.Delegate,
 		GestureDetector.OnGestureListener,
 		GestureDetector.OnDoubleTapListener{
 
@@ -40,14 +40,14 @@ public class MorseToTextFragment extends Fragment implements TranslateMorseTask.
 	// or a big space (between words)
 	//
 	// Used by the processResponse method
-	private boolean bigSpace = false;
+	private boolean _bigSpace = false;
 
 	// to handle gestures (tap, double taps, long press, pinch...)
-	private GestureDetectorCompat gDetector;
+	private GestureDetectorCompat _gDetector;
 
 	// to give a haptic feedback when the space button is triggered
 	// as the GestureDetectorCompat doesn't give any
-	private Vibrator mVib;
+	private Vibrator _mVib;
 
 
 	@Nullable
@@ -66,12 +66,12 @@ public class MorseToTextFragment extends Fragment implements TranslateMorseTask.
 		// Instantiate the gesture detector with the
 		// application context and an implementation of
 		// GestureDetector.OnGestureListener
-		gDetector = new GestureDetectorCompat(getActivity(),this);
+		_gDetector = new GestureDetectorCompat(getActivity(),this);
 		// Set the double tap listener on the GestureDetector
-		gDetector.setOnDoubleTapListener(this);
+		_gDetector.setOnDoubleTapListener(this);
 
 		// Instantiate the vibrator
-		mVib = (Vibrator) getActivity().getSystemService(VIBRATOR_SERVICE);
+		_mVib = (Vibrator) getActivity().getSystemService(VIBRATOR_SERVICE);
 
 		// Instantiate the Morse object, that will handle the translations (MTT and TTM)
 		_morse = Morse.getInstance(getActivity());
@@ -86,10 +86,6 @@ public class MorseToTextFragment extends Fragment implements TranslateMorseTask.
 		// get the TextView from the view
 		_translatedTextView = (EditText) view.findViewById(R.id.resultTextView);
 
-		// force the cursor to show at the beginning of the line
-		_translatedTextView.setSelection(0);
-		_translatedTextView.requestFocus();
-
 		// turns the vertical scrolling on
 		_translatedTextView.setMovementMethod(new ScrollingMovementMethod());
 
@@ -98,10 +94,14 @@ public class MorseToTextFragment extends Fragment implements TranslateMorseTask.
 		dotButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
+
+				//request the focus to display the cursor
+				_translatedTextView.requestFocus();
+
 				_toTranslate += ".";
 				_tmpString = _translatedTextView.getText().toString() + ".";
 
-				displayTranslatedText(_tmpString);
+				_displayTranslatedText(_tmpString);
 			}
 		});
 
@@ -110,10 +110,14 @@ public class MorseToTextFragment extends Fragment implements TranslateMorseTask.
 		dashButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
+
+				//request the focus to display the cursor
+				_translatedTextView.requestFocus();
+
 				_toTranslate += "-";
 				_tmpString = _translatedTextView.getText().toString() + "-";
 
-				displayTranslatedText(_tmpString);
+				_displayTranslatedText(_tmpString);
 			}
 		});
 
@@ -126,7 +130,7 @@ public class MorseToTextFragment extends Fragment implements TranslateMorseTask.
 			@Override
 			public boolean onTouch(View view, MotionEvent motionEvent) {
 
-				gDetector.onTouchEvent(motionEvent);
+				_gDetector.onTouchEvent(motionEvent);
 
 				// return true if the event has been consumed
 				// false otherwise
@@ -154,7 +158,7 @@ public class MorseToTextFragment extends Fragment implements TranslateMorseTask.
 
 				if (_tmpString.length() > 0){
 					_tmpString = _tmpString.substring(0, _tmpString.length() -1);
-					displayTranslatedText(_tmpString);
+					_displayTranslatedText(_tmpString);
 
 					if (_toTranslate.length() > 0){
 						_toTranslate = _toTranslate.substring(0, _toTranslate.length() -1);
@@ -162,24 +166,12 @@ public class MorseToTextFragment extends Fragment implements TranslateMorseTask.
 				}
 			}
 		});
-
 	}
-
-
-	private void displayTranslatedText(String txt){
-
-		_translatedTextView.setText(txt);
-
-		// force the cursor to show up at the end of the line
-		_translatedTextView.setSelection(_translatedTextView.getText().length());
-
-	}
-
 
 	// called by the TranslateMorseTask AsyncTask
 	// onPostExecute method
 	@Override
-	public void processResponse(String out) {
+	public void processTranslationTask(String out) {
 
 		// get the text from the text view
 		_tmpString = _translatedTextView.getText().toString();
@@ -190,52 +182,29 @@ public class MorseToTextFragment extends Fragment implements TranslateMorseTask.
 		// append the result from the TranslateMorseTask asynctask
 		_tmpString += out;
 
-		// if processSpace has been triggered by a big space,
+		// if _processSpace has been triggered by a big space,
 		// add a space after the string
-		if (bigSpace){
+		if (_bigSpace){
 			_tmpString += " ";
-			bigSpace = false;
+			_bigSpace = false;
 		}
 
 		L.i("Translated Text :", _tmpString);
 
 		// set the textView
 
-		displayTranslatedText(_tmpString);
+		_displayTranslatedText(_tmpString);
 
 		// clear the string holding the text to translate
 		_toTranslate = "";
 
 	}
 
-	// called by the space button
-	private void processSpace(boolean isBigSpace){
-
-		// if the string to translate is not empty
-		if (!_toTranslate.equals("")){
-
-			// vibrate for 50 ms
-			mVib.vibrate(50);
-
-			// has this method been called by a small or big space ?
-			bigSpace = isBigSpace;
-
-			// start the ASyncTask
-			_morse.translateToText(this, _toTranslate);
-		}else{
-			// if no text to translate, just add a normal space
-			_tmpString = _translatedTextView.getText().toString();
-
-			displayTranslatedText(_tmpString += " ");
-		}
-	}
-
-
 	// 1 tap = small space
 	@Override
 	public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
 
-		processSpace(false);
+		_processSpace(false);
 		return true;
 	}
 
@@ -243,7 +212,7 @@ public class MorseToTextFragment extends Fragment implements TranslateMorseTask.
 	@Override
 	public boolean onDoubleTap(MotionEvent motionEvent) {
 
-		processSpace(true);
+		_processSpace(true);
 		return true;
 	}
 
@@ -251,7 +220,41 @@ public class MorseToTextFragment extends Fragment implements TranslateMorseTask.
 	@Override
 	public void onLongPress(MotionEvent motionEvent) {
 
-		processSpace(true);
+		_processSpace(true);
+	}
+
+	private void _displayTranslatedText(String txt){
+
+		_translatedTextView.setText(txt);
+
+		// force the cursor to show up at the end of the line
+		_translatedTextView.setSelection(_translatedTextView.getText().length());
+
+	}
+
+	// called by the space button
+	private void _processSpace(boolean isBigSpace){
+
+		//request the focus to display the cursor
+		_translatedTextView.requestFocus();
+
+		// if the string to translate is not empty
+		if (!_toTranslate.equals("")){
+
+			// vibrate for 50 ms
+			_mVib.vibrate(50);
+
+			// has this method been called by a small or big space ?
+			_bigSpace = isBigSpace;
+
+			// start the ASyncTask
+			_morse.translateToText(this, _toTranslate);
+		}else{
+			// if no text to translate, just add a normal space
+			_tmpString = _translatedTextView.getText().toString();
+
+			_displayTranslatedText(_tmpString += " ");
+		}
 	}
 
 

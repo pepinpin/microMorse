@@ -15,11 +15,11 @@ import static net.biospherecorp.umorse.MainActivity.delayTime;
 class SettingsAlert {
 
 	SettingsAlert(MainActivity activity) {
-		show(activity);
+		_show(activity);
 	}
 
 	// Displays the Settings AlertDialog
-	private void show(final MainActivity activity){
+	private void _show(final MainActivity activity){
 
 		// create the AlertDialog builder
 		final AlertDialog.Builder adb = new AlertDialog.Builder(activity);
@@ -74,7 +74,7 @@ class SettingsAlert {
 				int positionInWheel = np.getValue();
 
 				// Save the position to the SharedPreferences
-				saveDelayPositionToSharedPreferences(activity, positionInWheel);
+				_saveDelayPositionToSharedPreferences(activity, positionInWheel);
 
 				// update the delayTime
 				delayTime = MainActivity.Delays.values()[positionInWheel].speed;
@@ -92,13 +92,13 @@ class SettingsAlert {
 			}
 		});
 
-		// show the AlertDialog
+		// _show the AlertDialog
 		adb.show();
 	}
 
 	// save the "delay" position (from the wheel) in the default SharedPreferences
 	//
-	private void saveDelayPositionToSharedPreferences(MainActivity activity, int value){
+	private void _saveDelayPositionToSharedPreferences(MainActivity activity, int value){
 		SharedPreferences.Editor editor = getDefaultSharedPreferences(activity).edit();
 		editor.putInt("delay", value);
 		editor.apply();

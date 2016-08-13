@@ -31,4 +31,5 @@
 	<string name="error_no_json_toast">Impossible acceder a el archivo JSON</string>
 	<string name="snack_space_sending">(espacio)</string>
 	<string name="snack_letter_sending">"Envio de : "</string>
+	<string name="snack_repeat_sending">Reiterar...</string>
 </resources>

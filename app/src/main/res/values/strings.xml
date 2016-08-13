@@ -32,5 +32,6 @@
 	<string name="error_no_flash_dismiss_button">Dismiss</string>
 	<string name="error_no_camera_toast">Camera Error : Couldn\'t get the camera, it may be used by another app !</string>
 	<string name="error_no_json_toast">Can\'t access morse_code.json</string>
+	<string name="snack_repeat_sending">Repeat...</string>
 
 </resources>
