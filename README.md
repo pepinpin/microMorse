@@ -4,9 +4,8 @@
 simple &amp; multilingual Morse code coder/sender/decoder for Android powered devices (phones and tablets).
 
 Available for free on Google Play :
-[µMorse](https://play.google.com/store/apps/details?id=net.biospherecorp.umorse)
 
-<a href='https://github.com/pepinpin/microMorse?utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.eps'/></a>
+<a href='https://play.google.com/store/apps/details?id=net.biospherecorp.umorse&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img width='200px' alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
 
 ### Features :
 - Encode / decode Morse code on the fly
