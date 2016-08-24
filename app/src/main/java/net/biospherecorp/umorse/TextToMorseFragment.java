@@ -18,9 +18,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class TextToMorseFragment extends Fragment implements TranslateMorseTask.Delegate, SendMorseTask.Delegate{
+public class TextToMorseFragment extends Fragment implements TranslateMorseTask.Delegate, SendMorseTask.PostTask {
 
 	private static boolean REPEAT_SEND = false;
+
+	boolean sendWithLight = false; // use light or sound ?
 
 	private Morse _morse;
 	private SendMorseTask _task;

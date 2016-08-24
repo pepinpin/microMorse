@@ -3,8 +3,6 @@ package net.biospherecorp.umorse;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 
-import net.biospherecorp.umorse.SimpleCamera.FlashLight;
-
 
 // the dot is the basic unit of time measurement :
 // 1 dot = 1 unit
@@ -16,17 +14,26 @@ import net.biospherecorp.umorse.SimpleCamera.FlashLight;
 class SendMorseTask extends AsyncTask<String, String, Void> {
 
 	// delegation design pattern
-	interface Delegate{
+	interface PostTask {
 		void processSendingTask ();
 		void stopSending();
 	}
 
+	// the interface for the send mechanism (sound or light)
+	interface SendMechanism{
+		boolean init();
+		void on();
+		void off();
+		void release();
+	}
+
 	private MainActivity _main;
 	private TextToMorseFragment _ttmFragment;
-	private Delegate _delegate;
+	private PostTask _delegate;
 
-	private SimpleCamera _camera;
-	private FlashLight _flashLight;
+	private SendMechanism _mechanism;
+
+	private int _speedMultiplier = 1; // sound can be sent faster than light
 
 	SendMorseTask(MainActivity activity, TextToMorseFragment ttmFrag) {
 		_main = activity;
@@ -37,15 +44,17 @@ class SendMorseTask extends AsyncTask<String, String, Void> {
 	protected void onPreExecute() {
 		super.onPreExecute();
 
-		// Create a SimpleCamera object to send morse code
-		_camera = new SimpleCamera(_main);
-
-		if(!_camera.initCamera()){
-			_stopSendingMorse();
+		if (_ttmFragment.sendWithLight){
+			_mechanism = new MorseLight(_main);
+			_speedMultiplier = 1;
+		}else {
+			_mechanism = new MorseSound(_main);
+			_speedMultiplier = 3;
 		}
 
-		// get the flashlight
-		_flashLight = _camera.new FlashLight();
+		if(!_mechanism.init()){
+			_stopSendingMorse();
+		}
 	}
 
 	@Override
@@ -65,7 +74,7 @@ class SendMorseTask extends AsyncTask<String, String, Void> {
 				if (!isCancelled()){ // to make sure the task hasn't been canceled
 
 					// get the letter from the Reversed Translation Table &
-					// display it in the snackbar
+					// display it in the snack bar
 					publishProgress(Morse.REVERSED_TRANSLATION_TABLE.get(letter));
 
 					// split the morse encoded letter into symbols (dots & dashes)
@@ -80,19 +89,19 @@ class SendMorseTask extends AsyncTask<String, String, Void> {
 						switch (symbol){
 
 							case "." : // dot
-								_flashLight.lightOn();
-								Thread.sleep(MainActivity.delayTime); // a dot is 1 unit of time
-								_flashLight.lightOff();
+								_mechanism.on();
+								Thread.sleep(MainActivity.delayTime / _speedMultiplier); // a dot is 1 unit of time
+								_mechanism.off();
 								break;
 
 							case "-" : // dash
-								_flashLight.lightOn();
-								Thread.sleep(MainActivity.delayTime * 3); // a dash is 3 units of time
-								_flashLight.lightOff();
+								_mechanism.on();
+								Thread.sleep((MainActivity.delayTime * 3) / _speedMultiplier); // a dash is 3 units of time
+								_mechanism.off();
 								break;
 
 							default : // space (or any character not recognized)
-								Thread.sleep(MainActivity.delayTime); // a space is 1 unit of time
+								Thread.sleep(MainActivity.delayTime / _speedMultiplier); // a space is 1 unit of time
 								break;
 						}
 
@@ -128,7 +137,6 @@ class SendMorseTask extends AsyncTask<String, String, Void> {
 	@Override
 	protected void onPostExecute(Void aVoid) {
 		super.onPostExecute(aVoid);
-
 		_delegate = (TextToMorseFragment) _main.getFragmentManager().findFragmentByTag("ttm");
 		_delegate.processSendingTask();
 	}
@@ -136,11 +144,12 @@ class SendMorseTask extends AsyncTask<String, String, Void> {
 	// release the camera and reset
 	// the camera & flashlight variables
 	private void _clearAll(){
-		if (_camera != null){
-			_camera.releaseCamera();
-			_camera = null;
+
+		if (_mechanism != null){
+
+			_mechanism.release();
+			_mechanism = null;
 		}
-		_flashLight = null;
 	}
 
 	// stop sending morse code procedure

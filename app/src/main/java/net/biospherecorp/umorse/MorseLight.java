@@ -6,7 +6,7 @@ import android.hardware.Camera;
 import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
-class SimpleCamera {
+class MorseLight implements SendMorseTask.SendMechanism {
 
 	private MainActivity _main;
 
@@ -18,9 +18,9 @@ class SimpleCamera {
 
 	private boolean isFlashOn = false;
 
-	private static final String TAG = "SimpleCamera";
+	private static final String TAG = "MorseLight";
 
-	SimpleCamera(MainActivity activity){
+	MorseLight(MainActivity activity){
 		_main = activity;
 	}
 
@@ -54,7 +54,8 @@ class SimpleCamera {
 	}
 
 	// checks for flash and gets the camera device
-	boolean initCamera(){
+	@Override
+	public boolean init(){
 
 		// check if the device has a flash
 		//
@@ -103,7 +104,8 @@ class SimpleCamera {
 
 	// releases the camera and resets the
 	// camera & parameters fields to null
-	void releaseCamera(){
+	@Override
+	public void release(){
 		if (_camera != null){
 			_camera.release();
 			_camera = null;
@@ -111,40 +113,39 @@ class SimpleCamera {
 		}
 	}
 
-	// inner class representing just the flash light
-	class FlashLight{
 
-		// turn the light ON
-		void lightOn(){
+	// turn the light ON
+	@Override
+	public void on(){
 
-			// if light is off and there is a camera object
-			if(!isFlashOn && _camera != null){
+		// if light is off and there is a camera object
+		if(_camera != null && !isFlashOn){
 
-				_parameters = _camera.getParameters();
-				_parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+			_parameters = _camera.getParameters();
+			_parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
 
-				_camera.setParameters(_parameters);
-				_camera.startPreview();
+			_camera.setParameters(_parameters);
+			_camera.startPreview();
 
-				isFlashOn = true;
-			}
+			isFlashOn = true;
 		}
+	}
 
 
-		// turn the light OFF
-		void lightOff(){
+	// turn the light OFF
+	@Override
+	public void off(){
 
-			// if light is on and there is a camera object
-			if (isFlashOn && _camera != null){
+		// if light is on and there is a camera object
+		if (_camera != null && isFlashOn){
 
-				_parameters = _camera.getParameters();
-				_parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+			_parameters = _camera.getParameters();
+			_parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
 
-				_camera.setParameters(_parameters);
-				_camera.stopPreview();
+			_camera.setParameters(_parameters);
+			_camera.stopPreview();
 
-				isFlashOn = false;
-			}
+			isFlashOn = false;
 		}
 	}
 }
