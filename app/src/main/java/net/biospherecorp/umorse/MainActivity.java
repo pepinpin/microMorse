@@ -5,12 +5,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
 public class MainActivity extends AppCompatActivity{
-
-	//private TextToMorseFragment ttmFragment;
 
 	// set by the settings and used
 	// by the SendMorseTask AsyncTask
@@ -38,6 +37,7 @@ public class MainActivity extends AppCompatActivity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+
 		setTitle(R.string.app_name);
 
 		// get the "default" speed from SharedPreferences
@@ -51,6 +51,21 @@ public class MainActivity extends AppCompatActivity{
 				.commit();
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		// set the flag to keep the screen on
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+
+		// clear the flag that keeps the screen on
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
