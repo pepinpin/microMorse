@@ -22,13 +22,13 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 
 	private static boolean REPEAT_SEND = false;
 
-	boolean sendWithLight = false; // use light or sound ?
+	boolean sendWithLight = true; // use light or sound ?
 
 	private Morse _morse;
 	private SendMorseTask _task;
 
 	private EditText _textToTranslate;
-	private FloatingActionButton _repeatButton,  _sendButton;
+	private FloatingActionButton _repeatButton, _sendButton, _sendTypeButton;
 
 	private TextView _translatedTextView;
 
@@ -39,7 +39,7 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 	private String _translatedString = "";
 
 	// the colors used for the buttons
-	private int _sendingColor,  _notSendingColor,  _repeatOnColor, _repeatOffColor;
+	private int _sendingColor,  _notSendingColor, _repeatOnColor, _repeatOffColor;
 
 	// is it actually sending morse
 	private boolean _isSending = false;
@@ -185,6 +185,8 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 
 					// change the state of the button
 					_isSending = true;
+					_sendTypeButton.setVisibility(View.INVISIBLE);
+
 					_toggleButton();
 
 					// show the _snack
@@ -210,6 +212,29 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 				}
 			}
 		});
+
+
+
+	// Send Type Button (light or sound)
+		//
+		_sendTypeButton = (FloatingActionButton) view.findViewById(R.id.sendTypeButton);
+
+		// set the color
+		_sendTypeButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.repeatButtonOff)));
+
+		_sendTypeButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				if (sendWithLight){
+					sendWithLight = false;
+					_sendTypeButton.setImageResource(R.drawable.ic_morse_sound);
+				}else{
+					sendWithLight = true;
+					_sendTypeButton.setImageResource(R.drawable.ic_morse_light);
+				}
+			}
+		});
+
 	}
 
 	@Override
@@ -266,6 +291,8 @@ public class TextToMorseFragment extends Fragment implements TranslateMorseTask.
 		showSnack(getString(R.string.snack_stop_sending), 500);
 
 		_cancelTasks();
+
+		_sendTypeButton.setVisibility(View.VISIBLE);
 	}
 
 	private void _cancelTasks(){
