@@ -36,15 +36,12 @@ class MorseSound implements SendMorseTask.SendMechanism {
 	}
 
 	@Override
-	public void on() {
+	public void generate(int duration) throws InterruptedException {
 
 		// resources loaded here, as the stop() method releases all resources
 		soundId = _sp.load(_main, R.raw.morse_sound, 1);
 
-	}
-
-	@Override
-	public void off() {
+		Thread.sleep(duration);
 
 		_sp.stop(soundId);
 	}

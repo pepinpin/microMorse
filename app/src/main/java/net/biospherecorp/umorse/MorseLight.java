@@ -102,6 +102,15 @@ class MorseLight implements SendMorseTask.SendMechanism {
 		}
 	}
 
+	@Override
+	public void generate(int duration) throws InterruptedException {
+		on();
+
+		Thread.sleep(duration);
+
+		off();
+	}
+
 	// releases the camera and resets the
 	// camera & parameters fields to null
 	@Override
@@ -114,9 +123,10 @@ class MorseLight implements SendMorseTask.SendMechanism {
 	}
 
 
+
+
 	// turn the light ON
-	@Override
-	public void on(){
+	private void on(){
 
 		// if light is off and there is a camera object
 		if(_camera != null && !isFlashOn){
@@ -133,8 +143,7 @@ class MorseLight implements SendMorseTask.SendMechanism {
 
 
 	// turn the light OFF
-	@Override
-	public void off(){
+	private void off(){
 
 		// if light is on and there is a camera object
 		if (_camera != null && isFlashOn){

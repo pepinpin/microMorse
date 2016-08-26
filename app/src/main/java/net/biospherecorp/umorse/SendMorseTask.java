@@ -13,7 +13,7 @@ import android.support.design.widget.Snackbar;
 
 class SendMorseTask extends AsyncTask<String, String, Void> {
 
-	// delegation design pattern
+	// what happens when the task is complete
 	interface PostTask {
 		void processSendingTask ();
 		void stopSending();
@@ -22,8 +22,7 @@ class SendMorseTask extends AsyncTask<String, String, Void> {
 	// the interface for the send mechanism (sound or light)
 	interface SendMechanism{
 		boolean init();
-		void on();
-		void off();
+		void generate(int duration) throws InterruptedException;
 		void release();
 	}
 
@@ -89,15 +88,11 @@ class SendMorseTask extends AsyncTask<String, String, Void> {
 						switch (symbol){
 
 							case "." : // dot
-								_mechanism.on();
-								Thread.sleep(MainActivity.delayTime / _speedMultiplier); // a dot is 1 unit of time
-								_mechanism.off();
+								_mechanism.generate(MainActivity.delayTime / _speedMultiplier); // a dot is 1 unit of time
 								break;
 
 							case "-" : // dash
-								_mechanism.on();
-								Thread.sleep((MainActivity.delayTime * 3) / _speedMultiplier); // a dash is 3 units of time
-								_mechanism.off();
+								_mechanism.generate((MainActivity.delayTime * 3) / _speedMultiplier); // a dot is 1 unit of time
 								break;
 
 							default : // space (or any character not recognized)
