@@ -1,7 +1,10 @@
 ![GitHub Logo](/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png)
 
 # microMorse (µMorse)
-simple &amp; multilingual Morse code coder/sender/decoder for Android powered devices (phones and tablets).
+
+Send Morse code with Light OR Sound
+
+simple &amp; multilingual Morse code coder/sender/decoder for Android (phones and tablets).
 
 Available for free on Google Play :
 
@@ -22,3 +25,4 @@ Available for free on Google Play :
 
 ### Todo :
 - use the camera to decode light emitted Morse Code
+- display the translation table
