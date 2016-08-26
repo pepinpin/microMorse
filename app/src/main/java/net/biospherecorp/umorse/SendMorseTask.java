@@ -49,7 +49,7 @@ class SendMorseTask extends AsyncTask<String, String, Void> {
 			_speedMultiplier = 1;
 		}else {
 			_mechanism = new MorseSound(_main);
-			_speedMultiplier = 3;
+			_speedMultiplier = 2;
 		}
 
 		if(!_mechanism.init()){

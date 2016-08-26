@@ -25,6 +25,13 @@ class MorseSound implements SendMorseTask.SendMechanism {
 			return false;
 		}
 
+		_sp.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+			@Override
+			public void onLoadComplete(SoundPool soundPool, int i, int i1) {
+				_sp.play(soundId, 1, 1, 0, 0, 1);
+			}
+		});
+
 		return true;
 	}
 
@@ -34,7 +41,6 @@ class MorseSound implements SendMorseTask.SendMechanism {
 		// resources loaded here, as the stop() method releases all resources
 		soundId = _sp.load(_main, R.raw.morse_sound, 1);
 
-		_sp.play(soundId, 1, 1, 0, 0, 1);
 	}
 
 	@Override
