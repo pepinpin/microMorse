@@ -13,8 +13,7 @@ Available for free on Google Play :
 ### Features :
 - Encode / decode Morse code on the fly
 - Send Morse code using the Flash Light or Sound
- * If no Flash Light is present, still works as a coder/decoder/sender with sound
-- Change the emission speed on the fly
+- Change the emission rate on the fly
 - No ads
 
 ### Supported languages :
