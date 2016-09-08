@@ -12,7 +12,7 @@ public abstract class L{
 
 
 	// change this to active / deactivate this tool
-	private static boolean IS_ACTIVATED = false;
+	public static boolean IS_ACTIVATED = false;
 
 
 
@@ -141,7 +141,7 @@ public abstract class L{
 	// color green in Android Studio console/monitor
 	static void info (String message){
 		if (IS_ACTIVATED) {
-			Log.i(">> Info msg >> ", message);
+			Log.i("<!> Info msg <!> ", message);
 		}
 	}
 
@@ -150,7 +150,7 @@ public abstract class L{
 	// color green in Android Studio console/monitor
 	static void info (String TAG, String message){
 		if (IS_ACTIVATED) {
-			Log.i(">> Info msg >> ", TAG + message);
+			Log.i("<!> Info msg <!> ", TAG + message);
 		}
 	}
 
@@ -160,7 +160,7 @@ public abstract class L{
 	// color yellow in Android Studio console/monitor
 	static void warning (String message){
 		if (IS_ACTIVATED) {
-			Log.w(">> Warning msg >> ", message);
+			Log.w("<!> Warning msg <!> ", message);
 		}
 	}
 
@@ -169,7 +169,7 @@ public abstract class L{
 	// color yellow in Android Studio console/monitor
 	static void warning (String TAG, String message){
 		if (IS_ACTIVATED) {
-			Log.w(">> Warning msg >> ", TAG + " : " + message);
+			Log.w("<!> Warning msg <!> ", TAG + " : " + message);
 		}
 	}
 
@@ -179,7 +179,7 @@ public abstract class L{
 	// color red in Android Studio console/monitor
 	static void error (String message){
 		if (IS_ACTIVATED) {
-			Log.e(">> Error msg >> ", message);
+			Log.e("<!> Error msg <!> ", message);
 		}
 	}
 
@@ -188,7 +188,7 @@ public abstract class L{
 	// color red in Android Studio console/monitor
 	static void error (String TAG, String message){
 		if (IS_ACTIVATED) {
-			Log.e(">> Error msg >> ", TAG + " : " + message);
+			Log.e("<!> Error msg <!> ", TAG + " : " + message);
 		}
 	}
 
@@ -198,7 +198,7 @@ public abstract class L{
 	// color blue in Android Studio console/monitor
 	static void debug (String message){
 		if (IS_ACTIVATED) {
-			Log.d(">> Debug msg >> ", message);
+			Log.d("<!> Debug msg <!> ", message);
 		}
 	}
 
@@ -207,7 +207,7 @@ public abstract class L{
 	// color blue in Android Studio console/monitor
 	static void debug (String TAG, String message){
 		if (IS_ACTIVATED) {
-			Log.d(">> Debug msg >> ", TAG + " : " + message);
+			Log.d("<!> Debug msg <!> ", TAG + " : " + message);
 		}
 	}
 
@@ -223,7 +223,7 @@ public abstract class L{
 	// color green in Android Studio console/monitor
 	static void i (String message){
 		if (IS_ACTIVATED) {
-			Log.i(">> Info msg >> ", message);
+			Log.i("<!> Info msg <!> ", message);
 		}
 	}
 
@@ -232,7 +232,7 @@ public abstract class L{
 	// color green in Android Studio console/monitor
 	static void i (String TAG, String message){
 		if (IS_ACTIVATED) {
-			Log.i(">> Info msg >> ", TAG + message);
+			Log.i("<!> Info msg <!> ", TAG + message);
 		}
 	}
 
@@ -242,7 +242,7 @@ public abstract class L{
 	// color yellow in Android Studio console/monitor
 	static void w(String message){
 		if (IS_ACTIVATED) {
-			Log.w(">> Warning msg >> ", message);
+			Log.w("<!> Warning msg <!> ", message);
 		}
 	}
 
@@ -251,7 +251,7 @@ public abstract class L{
 	// color yellow in Android Studio console/monitor
 	static void w(String TAG, String message){
 		if (IS_ACTIVATED) {
-			Log.w(">> Warning msg >> ", TAG + " : " + message);
+			Log.w("<!> Warning msg <!> ", TAG + " : " + message);
 		}
 	}
 
@@ -261,7 +261,7 @@ public abstract class L{
 	// color red in Android Studio console/monitor
 	static void e(String message){
 		if (IS_ACTIVATED) {
-			Log.e(">> Error msg >> ", message);
+			Log.e("<!> Error msg <!> ", message);
 		}
 	}
 
@@ -270,7 +270,7 @@ public abstract class L{
 	// color red in Android Studio console/monitor
 	static void e(String TAG, String message){
 		if (IS_ACTIVATED) {
-			Log.e(">> Error msg >> ", TAG + " : " + message);
+			Log.e("<!> Error msg <!> ", TAG + " : " + message);
 		}
 	}
 
@@ -280,7 +280,7 @@ public abstract class L{
 	// color blue in Android Studio console/monitor
 	static void d(String message){
 		if (IS_ACTIVATED) {
-			Log.d(">> Debug msg >> ", message);
+			Log.d("<!> Debug msg <!> ", message);
 		}
 	}
 
@@ -289,7 +289,7 @@ public abstract class L{
 	// color blue in Android Studio console/monitor
 	static void d(String TAG, String message){
 		if (IS_ACTIVATED) {
-			Log.d(">> Debug msg >> ", TAG + " : " + message);
+			Log.d("<!> Debug msg <!> ", TAG + " : " + message);
 		}
 	}
 }

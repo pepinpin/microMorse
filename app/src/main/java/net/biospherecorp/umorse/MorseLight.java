@@ -2,7 +2,7 @@ package net.biospherecorp.umorse;
 
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
-import android.hardware.Camera;
+import android.os.Build;
 import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
@@ -10,15 +10,19 @@ class MorseLight implements SendMorseTask.SendMechanism {
 
 	private MainActivity _main;
 
-	// deprecated but still the best way
-	// to get the camera as Camera2 is only available
-	// from API 21
-	private Camera _camera;
-	private Camera.Parameters _parameters;
-
+	private FlashLight _flash;
 	private boolean isFlashOn = false;
 
 	private static final String TAG = "MorseLight";
+
+
+	interface FlashLight{
+		void open();
+		void release();
+		void on();
+		void off();
+	}
+
 
 	MorseLight(MainActivity activity){
 		_main = activity;
@@ -37,37 +41,48 @@ class MorseLight implements SendMorseTask.SendMechanism {
 		return hasFlash;
 	}
 
-	// get the camera device and the parameters
-	private void _getCamera(){
 
-		// if the camera is not already opened
-		if (_camera == null){
-			try {
-				// open it
-				_camera = Camera.open();
-			}catch (RuntimeException e){
-				e.printStackTrace();
-				L.e(TAG, "Camera Error : Couldn't get the camera, it may be used by another app !");
-				L.e(TAG, "Camera Error : " + e.getMessage());
+	// get the camera device and the parameters
+	private boolean _getCamera(){
+
+		try {
+
+			// instantiate flash light object depending on SDK version
+			if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+				_flash = new FlashLight_Pre_Marshmallow();
+			}else{
+				_flash = new FlashLight_Post_Marshmallow(_main);
 			}
+
+			// open the flash
+			_flash.open();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			L.e(TAG, "Camera Error : Couldn't get the camera, it may be used by another app !");
+			L.e(TAG, "Camera Error : " + e.getMessage());
+
+			return false;
 		}
+
+		return true;
 	}
+
 
 	// checks for flash and gets the camera device
 	@Override
 	public boolean init(){
 
-		// check if the device has a flash
-		//
-	// it it DOES have a flash
+	// check if the device has a flash
+	//
+	// if it DOES have a flash
 		if(_checkIfCameraHasFlash()){
 
 			// check if the camera
 			// is available (not already in use)
-			_getCamera();
-
+			//
 			// if the camera is not available
-			if (_camera == null){
+			if (!_getCamera()){
 
 				// display a toast
 				Toast.makeText(_main, R.string.error_no_camera_toast, Toast.LENGTH_LONG).show();
@@ -98,45 +113,36 @@ class MorseLight implements SendMorseTask.SendMechanism {
 
 			// it DOESN'T have a flash
 			return false;
-
 		}
 	}
+
 
 	@Override
 	public void generate(int duration) throws InterruptedException {
+
 		on();
-
 		Thread.sleep(duration);
-
 		off();
 	}
 
-	// releases the camera and resets the
-	// camera & parameters fields to null
+
+	// releases the flash
 	@Override
 	public void release(){
-		if (_camera != null){
-			_camera.release();
-			_camera = null;
-			_parameters = null;
+		if (_flash != null){
+			_flash.release();
+			_flash = null;
 		}
 	}
-
-
 
 
 	// turn the light ON
 	private void on(){
 
-		// if light is off and there is a camera object
-		if(_camera != null && !isFlashOn){
+		// if light is off and there is a flash object
+		if(_flash != null && !isFlashOn){
 
-			_parameters = _camera.getParameters();
-			_parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-
-			_camera.setParameters(_parameters);
-			_camera.startPreview();
-
+			_flash.on();
 			isFlashOn = true;
 		}
 	}
@@ -145,15 +151,10 @@ class MorseLight implements SendMorseTask.SendMechanism {
 	// turn the light OFF
 	private void off(){
 
-		// if light is on and there is a camera object
-		if (_camera != null && isFlashOn){
+		// if light is on and there is a flash object
+		if (_flash != null && isFlashOn){
 
-			_parameters = _camera.getParameters();
-			_parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
-
-			_camera.setParameters(_parameters);
-			_camera.stopPreview();
-
+			_flash.off();
 			isFlashOn = false;
 		}
 	}
