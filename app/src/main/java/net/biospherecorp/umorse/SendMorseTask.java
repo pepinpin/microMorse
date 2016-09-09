@@ -32,8 +32,6 @@ class SendMorseTask extends AsyncTask<String, String, Void> {
 
 	private SendMechanism _mechanism;
 
-	private int _speedMultiplier = 1; // sound can be sent faster than light
-
 	SendMorseTask(MainActivity activity, TextToMorseFragment ttmFrag) {
 		_main = activity;
 		_ttmFragment = ttmFrag;
@@ -45,16 +43,15 @@ class SendMorseTask extends AsyncTask<String, String, Void> {
 
 		if (_ttmFragment.sendWithLight){
 			_mechanism = new MorseLight(_main);
-			_speedMultiplier = 1;
 		}else {
-			_mechanism = new MorseSound(_main);
-			_speedMultiplier = 2;
+			_mechanism = new MorseSound();
 		}
 
 		if(!_mechanism.init()){
 			_stopSendingMorse();
 		}
 	}
+
 
 	@Override
 	protected Void doInBackground(String... params) {
@@ -88,15 +85,15 @@ class SendMorseTask extends AsyncTask<String, String, Void> {
 						switch (symbol){
 
 							case "." : // dot
-								_mechanism.generate(MainActivity.delayTime / _speedMultiplier); // a dot is 1 unit of time
+								_mechanism.generate(MainActivity.delayTime); // a dot is 1 unit of time
 								break;
 
 							case "-" : // dash
-								_mechanism.generate((MainActivity.delayTime * 3) / _speedMultiplier); // a dot is 1 unit of time
+								_mechanism.generate(MainActivity.delayTime * 3); // a dot is 1 unit of time
 								break;
 
 							default : // space (or any character not recognized)
-								Thread.sleep(MainActivity.delayTime / _speedMultiplier); // a space is 1 unit of time
+								Thread.sleep(MainActivity.delayTime); // a space is 1 unit of time
 								break;
 						}
 

@@ -18,11 +18,11 @@ public class MainActivity extends AppCompatActivity{
 	// Enum holding the name and values for the emitting speed
 	// used in the settings
 	enum Delays{
-		VERY_FAST(R.string.emitting_speed_very_fast ,300),
-		FAST(R.string.emitting_speed_fast,600),
-		NORMAL(R.string.emitting_speed_normal, 900),
-		SLOW(R.string.emitting_speed_slow, 1200),
-		VERY_SLOW(R.string.emitting_speed_very_slow, 1500);
+		VERY_FAST(R.string.emitting_speed_very_fast ,250),
+		FAST(R.string.emitting_speed_fast,350),
+		NORMAL(R.string.emitting_speed_normal, 450),
+		SLOW(R.string.emitting_speed_slow, 550),
+		VERY_SLOW(R.string.emitting_speed_very_slow, 650);
 
 		int name;
 		int speed;
@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 
 		setTitle(R.string.app_name);
 
@@ -113,6 +112,6 @@ public class MainActivity extends AppCompatActivity{
 	// load the "delay" position (in the Enum) from the default SharedPreferences
 	int loadDelayPositionFromSharedPreferences(){
 		SharedPreferences sharedPreferences = getDefaultSharedPreferences(this);
-		return sharedPreferences.getInt("delay", 0);
+		return sharedPreferences.getInt("delay", 2);
 	}
 }
