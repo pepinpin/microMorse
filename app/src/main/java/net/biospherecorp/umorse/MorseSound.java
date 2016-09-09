@@ -13,11 +13,16 @@ class MorseSound implements SendMorseTask.SendMechanism {
 	private int frequence = 550;
 
 	private boolean isRunning = true;
-	private boolean isPlaying = false;
+	boolean isPlaying = false;
 
 
 	private double fr = frequence * 2;
 
+
+	@Override
+	public boolean isPlaying() {
+		return isPlaying;
+	}
 
 	@Override
 	public boolean init() {
@@ -91,10 +96,4 @@ class MorseSound implements SendMorseTask.SendMechanism {
 		}
 
 	}
-
-
-
-
-
-
 }

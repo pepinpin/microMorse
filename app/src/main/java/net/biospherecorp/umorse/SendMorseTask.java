@@ -21,6 +21,7 @@ class SendMorseTask extends AsyncTask<String, String, Void> {
 
 	// the interface for the send mechanism (sound or light)
 	interface SendMechanism{
+		boolean isPlaying();
 		boolean init();
 		void generate(int duration) throws InterruptedException;
 		void release();
@@ -80,6 +81,12 @@ class SendMorseTask extends AsyncTask<String, String, Void> {
 						if (!previousCharacter.equals(" ") && // if previous character isn't a space
 								!symbol.equals(" ")){ // and actual character isn't a space (if it is, let it be handled by the switch/case)
 							Thread.sleep(MainActivity.delayTime); // add a delay before sending out the next signal
+						}
+
+						// wait until the previous character
+						// has been properly generated
+						while(_mechanism.isPlaying()){
+							Thread.sleep(10);
 						}
 
 						switch (symbol){

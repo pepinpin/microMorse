@@ -69,6 +69,11 @@ class MorseLight implements SendMorseTask.SendMechanism {
 	}
 
 
+	@Override
+	public boolean isPlaying() {
+		return isFlashOn;
+	}
+
 	// checks for flash and gets the camera device
 	@Override
 	public boolean init(){

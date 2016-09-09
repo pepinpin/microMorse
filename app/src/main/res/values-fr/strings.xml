@@ -32,5 +32,4 @@
 	<string name="snack_letter_sending">"Envoi de : "</string>
 	<string name="snack_space_sending">(espace)</string>
 	<string name="snack_repeat_sending">Répéter...</string>
-	<string name="emitting_speed_crazy_fast">Crazy Fast</string>
 </resources>
